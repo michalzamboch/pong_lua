@@ -39,6 +39,9 @@ luac.out
 *.x86_64
 *.hex
 
+# Export files
+*.love
+
 # Folders
 /.vscode
 /test

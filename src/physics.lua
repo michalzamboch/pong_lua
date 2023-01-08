@@ -1,7 +1,7 @@
 require "bat"
 require "ball"
 
-function distanceBetween(x1, y1, x2, y2)
+function DistanceBetween(x1, y1, x2, y2)
     local yRes = (y2 - y1) ^ 2
     local xRes = (x2 - x1) ^ 2
     return math.sqrt(yRes + xRes)
@@ -26,7 +26,7 @@ bool intersects(CircleType circle, RectType rect)
 }
 ]] --
 
-function intersects(ball, bat)
+function Intersects(ball, bat)
     local x = math.abs(ball.x - bat.x)
     local y = math.abs(ball.y - bat.y)
 
