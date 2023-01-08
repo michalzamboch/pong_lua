@@ -1,2 +1,3 @@
 # Pong
-### Lua - Love framework
+### Love framework
+https://love2d.org/
