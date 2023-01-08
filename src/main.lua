@@ -1,27 +1,15 @@
-Bat = {
-    x = 0,
-    y = 0,
-    w = 0,
-    h = 0
-}
+require "bat"
+require "ball"
 
-function Bat.new(self, x, y, w, h)
-    self.x = x
-    self.y = y
-    self.w = w
-    self.h = h
-
-    return self
-end
-
-function Bat.draw(self)
-    love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
-end
-
-------------------------------------------------------------------------
+------------------------------------------------
 
 function love.load()
+    Bat1 = Bat:new()
+    Bat1:setPosition(50, 50)
+    Bat2 = Bat:new()
+    Bat2:setPosition(200, 200)
 
+    --love.window.setFullscreen(true)
 end
 
 function love.update(dt)
@@ -29,17 +17,19 @@ function love.update(dt)
 end
 
 function love.draw()
-
+    love.graphics.setColor(255, 255, 255)
+    Bat1:draw()
+    Bat2:draw()
 end
 
 function love.mousepressed(x, y, b, istouch)
     if b == 1 then
-        
+
     end
 end
 
-function distanceBetween(x1, y1, x2, y2)
-    local yRes = (y2 - y1) ^ 2
-    local xRes = (x2 - x1) ^ 2
-    return math.sqrt(yRes + xRes)
+function love.keypressed(key, scancode, isrepeat)
+	if key == "f4" then
+        os.exit()    
+    end
 end
