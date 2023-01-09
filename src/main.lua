@@ -48,10 +48,12 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-    if key == "f4" then
+    if key == "f4" or key == "escape" then
         os.exit()
     elseif key == "f11" then
         Fullscreen = not Fullscreen
         love.window.setFullscreen(Fullscreen)
+    elseif key == "f5" then
+        -- reset
     end
 end
