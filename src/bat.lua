@@ -1,3 +1,8 @@
+
+ScreenHeight = love.graphics.getPixelHeight()
+ScreenWidth = love.graphics.getPixelWidth()
+BatPosY = (ScreenHeight / 2) - 130 / 2
+
 PlayerId = {
     player1 = 1,
     player2 = 2
@@ -5,19 +10,22 @@ PlayerId = {
 
 Bat = {
     x = 0,
-    y = 0,
+    y = BatPosY,
     w = 25,
-    h = 125,
+    h = 130,
     speed = 200,
+    acceleration = 10,
     ai = false,
     player = PlayerId.player1
 }
 
-function Bat:new(o)
-    o = o or {}
-    setmetatable(o, self)
+function Bat:new(xPos)
+    local object = {}
+    setmetatable(object, self)
     self.__index = self
-    return o
+
+    object.x = xPos
+    return object
 end
 
 function Bat:setPosition(a, b)
@@ -38,35 +46,16 @@ function Bat:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
 end
 
-function Bat:move(dt)
-    if self.ai == true then
-        self:aiMove(dt)
-        print("ai")
-    else
-        if self.player == PlayerId.player1 then
-            Bat:player1Move(dt)
-            print("pl 1")
-        else
-            Bat:player2Move(dt)
-            print("pl 2")
-        end
-    end
-end
-
-function Bat:player1Move(dt)
-    if love.keyboard.isDown("down") then
+function Bat:moveManually(dt, down, up)
+    if love.keyboard.isDown(down) then
         self:down(dt)
-    elseif love.keyboard.isDown("up") then
+    elseif love.keyboard.isDown(up) then
         self:up(dt)
     end
 end
 
-function Bat:player2Move(dt)
-    if love.keyboard.isDown("s") then
-        self:down(dt)
-    elseif love.keyboard.isDown("w") then
-        self:up(dt)
-    end
+function Bat:moveAutomatically(dt, ball)
+
 end
 
 function Bat:up(dt)
@@ -75,8 +64,4 @@ end
 
 function Bat:down(dt)
     self.y = self.y + self.speed * dt
-end
-
-function Bat:aiMove(dt)
-
 end
