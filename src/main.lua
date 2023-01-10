@@ -17,12 +17,14 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-    if key == "f4" or key == "escape" then
+    if key == "escape" then
         os.exit()
+    elseif key == "f5" then
+        GameCore:reset()
     elseif key == "f11" then
         Fullscreen = not Fullscreen
         love.window.setFullscreen(Fullscreen)
-    elseif key == "f5" then
-        -- reset
+    elseif key == "f6" then
+        GameCore:pauseGame()
     end
 end

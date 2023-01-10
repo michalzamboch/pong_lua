@@ -1,20 +1,36 @@
 require "physics"
 
 Ball = {
-    x = 0,
-    y = 0,
+    x = love.graphics.getPixelWidth() / 2,
+    y = love.graphics.getPixelHeight() / 2,
     r = 15,
 
     xSpeed = 150,
     ySpeed = 150
 }
 
+local function DefaultSettings(o)
+    o.x = love.graphics.getPixelWidth() / 2
+    o.y = love.graphics.getPixelHeight() / 2
+    o.r = 15
+    o.xSpeed = 150
+    o.ySpeed = 150
+end
+
 function Ball:new(o)
     o = o or {}
     setmetatable(o, self)
     self.__index = self
+
+    DefaultSettings(o)
     return o
 end
+
+function Ball:reset()
+    DefaultSettings(self)
+end
+
+---------------------------------------------------------------
 
 function Ball:draw()
     love.graphics.circle("fill", self.x, self.y, self.r)
@@ -30,6 +46,8 @@ function Ball:move(dt, bat1, bat2)
 
     self:setPosition(tmp_x, tmp_y)
 end
+
+---------------------------------------------------------------
 
 function Ball:BatCollision(bat, tmp_x, tmp_y)
     local collides = Intersects(bat, tmp_x, tmp_y, self.r)
