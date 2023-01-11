@@ -1,15 +1,5 @@
 require "physics"
 
-Collisions = {
-    nothing = 0,
-    up = 1,
-    down = 2,
-    right = 3,
-    left = 4,
-    rightBat = 5,
-    leftBat = 6
-}
-
 local BallSize = 20
 local DefX = love.graphics.getPixelWidth() / 2 - BallSize / 2
 local DefY = love.graphics.getPixelHeight() / 2 - BallSize / 2
