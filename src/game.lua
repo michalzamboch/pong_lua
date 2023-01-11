@@ -49,7 +49,7 @@ end
 function Game:update(dt)
     if self.pause == false then
         self:moveBats(dt)
-        self.ball:move(dt, self.bat1, self.bat2)
+        self.ball:move()
     end
 end
 

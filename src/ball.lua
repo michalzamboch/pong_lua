@@ -54,22 +54,21 @@ function Ball:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.a, self.a)
 end
 
-function Ball:move(dt, bat1, bat2)
+function Ball:move()
+    local dt = love.timer.getDelta()
     local tmp_x = self.x + self.xSpeed * dt
     local tmp_y = self.y + self.ySpeed * dt
-    --local collision = Collisions.nothing
 
-    self:BatCollision(bat1, bat2, tmp_x, tmp_y)
+    self:BatCollision(tmp_x, tmp_y)
     self:HorizontalWallCollision(tmp_y)
-    local collision = self:VerticalWallCollision(tmp_x)
-
-    --self:setPosition(tmp_x, tmp_y)
-    return collision
+    self:VerticalWallCollision(tmp_x)
 end
 
 ---------------------------------------------------------------
 
-function Ball:BatCollision(bat1, bat2, tmp_x, tmp_y)
+function Ball:BatCollision(tmp_x, tmp_y)
+    local bat1 = self.game.bat1
+    local bat2 = self.game.bat2
 
 
     return tmp_x, tmp_y
@@ -95,23 +94,20 @@ function Ball:VerticalWallCollision(tmp_x)
     local width = love.graphics.getPixelWidth()
 
     if tmp_x > (width - self.a) then
-        --DefaultSettings(self)
         self.x = width - self.a
         self:invertXSpeed()
         self.game.player1:increasePoints()
-        return Collisions.left
+        -- self:reset()
     end
 
     if tmp_x < 0 then
-        --DefaultSettings(self)
         self.x = 0
         self:invertXSpeed()
         self.game.player2:increasePoints()
-        return Collisions.right
+        -- self:reset()
     end
 
     self.x = tmp_x
-    return Collisions.nothing
 end
 
 function Ball:setPosition(x, y)

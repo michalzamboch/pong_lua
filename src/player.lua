@@ -1,6 +1,5 @@
 
 PlayerId = {
-    unknown = 0,
     player = 1,
     ai = 2
 }
@@ -8,7 +7,7 @@ PlayerId = {
 local myFont = love.graphics.newFont(45)
 
 Player = {
-    id = PlayerId.unknown,
+    id = PlayerId.player,
     points = 0,
     x = 0,
     y = 25,
