@@ -1,4 +1,3 @@
-
 PlayerId = {
     player = 1,
     ai = 2
@@ -14,13 +13,14 @@ Player = {
 }
 
 function Player:new(xPos, id)
-    local o = {}
-    setmetatable(o, self)
+    local object = {}
+    setmetatable(object, self)
     self.__index = self
     love.graphics.setFont(myFont)
-    o.x = xPos
-    o.id = id
-    return o
+
+    object.x = xPos
+    object.id = id
+    return object
 end
 
 function Player:setPlayerId(id)

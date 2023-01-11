@@ -28,8 +28,8 @@ function Game:new()
     setmetatable(object, self)
     self.__index = self
 
-    object.bat1 = Bat:new(BatStartPosition)
-    object.bat2 = Bat:new(ScreenWidth() - BatStartPosition * 2)
+    object.bat1 = Bat:new(object, BatStartPosition)
+    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2)
     object.player1 = Player:new(ScorePosition, PlayerId.player)
     object.player2 = Player:new(ScorePosition * 3, PlayerId.ai)
     object.ball = Ball:new(object)
@@ -57,13 +57,13 @@ function Game:moveBats(dt)
     if self.player1.id == PlayerId.player then
         self.bat1:moveManually(dt, "down", "up")
     else
-        self.bat1:moveAutomatically(dt, self.ball)
+        self.bat1:moveAutomatically()
     end
 
     if self.player2.id == PlayerId.player then
         self.bat2:moveManually(dt, "s", "w")
     else
-        self.bat2:moveAutomatically(dt, self.ball)
+        self.bat2:moveAutomatically()
     end
 end
 
@@ -79,7 +79,12 @@ end
 function Game:fullscreen()
     Fullscreen = not Fullscreen
     love.window.setFullscreen(Fullscreen)
-    self.bat2:setVerticalPos(ScreenWidth() - self.bat2.w * 2)
+
+    self.bat1:setVerticalPos(ScreenHeight() / 2 - self.bat1.h / 2)
+    self.bat2:setHorizontalPos(ScreenWidth() - self.bat2.w * 2)
+    self.player1.x = ScreenWidth() / 4
+    self.player2.x = self.player1.x * 3
+    self.ball:reset()
 end
 
 function Game:pauseGame()

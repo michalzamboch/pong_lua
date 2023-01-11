@@ -1,4 +1,3 @@
-
 function DistanceBetween(x1, y1, x2, y2)
     local yRes = (y2 - y1) ^ 2
     local xRes = (x2 - x1) ^ 2

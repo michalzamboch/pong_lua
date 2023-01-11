@@ -2,7 +2,7 @@ require "physics"
 
 local BallSize = 20
 local DefX = love.graphics.getPixelWidth() / 2 - BallSize / 2
-local DefY = love.graphics.getPixelHeight() / 2 - BallSize / 2
+local DefY = love.graphics.getPixelWidth() / 2 - BallSize / 2
 local DefXSpeed = 150
 local DefYSpeed = -150
 
@@ -17,8 +17,8 @@ Ball = {
 }
 
 local function DefaultSettings(o)
-    o.x = DefX
-    o.y = DefY
+    o.x = love.graphics.getPixelWidth() / 2 - BallSize / 2
+    o.y = love.graphics.getPixelHeight() / 2 - BallSize / 2
     o.a = BallSize
     o.xSpeed = DefXSpeed
     o.ySpeed = DefYSpeed
