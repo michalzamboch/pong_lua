@@ -22,8 +22,7 @@ function love.keypressed(key, scancode, isrepeat)
     elseif key == "f5" then
         GameCore:reset()
     elseif key == "f11" then
-        Fullscreen = not Fullscreen
-        love.window.setFullscreen(Fullscreen)
+        GameCore:fullscreen()
     elseif key == "f6" then
         GameCore:pauseGame()
     end

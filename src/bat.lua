@@ -2,11 +2,6 @@ ScreenHeight = love.graphics.getPixelHeight()
 ScreenWidth = love.graphics.getPixelWidth()
 BatPosY = (ScreenHeight / 2) - 120 / 2
 
-PlayerId = {
-    player1 = 1,
-    player2 = 2
-}
-
 Bat = {
     x = 0,
     y = BatPosY,
@@ -45,6 +40,10 @@ end
 function Bat:setPosition(a, b)
     self.x = a
     self.y = b
+end
+
+function Bat:setVerticalPos(x)
+    self.x = x
 end
 
 function Bat:setSpeed(s)

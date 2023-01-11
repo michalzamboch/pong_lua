@@ -1,24 +1,26 @@
 
 PlayerId = {
     unknown = 0,
-    player1 = 1,
-    player2 = 2,
-    ai = 3
+    player = 1,
+    ai = 2
 }
+
+local myFont = love.graphics.newFont(45)
 
 Player = {
     id = PlayerId.unknown,
     points = 0,
     x = 0,
-    y = 50,
-    font = love.graphics.newFont("helvetica", 20)
+    y = 25,
 }
 
-function Player:new(o)
-    o = o or {}
+function Player:new(xPos, id)
+    local o = {}
     setmetatable(o, self)
     self.__index = self
-    love.graphics.setFont(self.font)
+    love.graphics.setFont(myFont)
+    o.x = xPos
+    o.id = id
     return o
 end
 
@@ -34,7 +36,7 @@ function Player:increasePoints()
     self.points = self.points + 1
 end
 
-function Player:resetPoints()
+function Player:reset()
     self.points = 0
 end
 
