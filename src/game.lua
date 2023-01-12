@@ -97,9 +97,9 @@ function Game:drawLine()
 end
 
 function Game:switchModeBat1()
-    self.bat1.manual = not self.bat1.manual
+    self.player1.manual = not self.player1.manual
 end
 
 function Game:switchModeBat2()
-    self.bat2.manual = not self.bat2.manual
+    self.player2.manual = not self.player2.manual
 end
