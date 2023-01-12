@@ -30,8 +30,8 @@ function Game:new()
 
     object.bat1 = Bat:new(object, BatStartPosition)
     object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2)
-    object.player1 = Player:new(ScorePosition, PlayerId.player)
-    object.player2 = Player:new(ScorePosition * 3, PlayerId.ai)
+    object.player1 = Player:new(ScorePosition, true)
+    object.player2 = Player:new(ScorePosition * 3, false)
     object.ball = Ball:new(object)
 
     return object
@@ -54,13 +54,13 @@ function Game:update(dt)
 end
 
 function Game:moveBats(dt)
-    if self.player1.id == PlayerId.player then
+    if self.player1.manual then
         self.bat1:moveManually(dt, "down", "up")
     else
         self.bat1:moveAutomatically()
     end
 
-    if self.player2.id == PlayerId.player then
+    if self.player2.manual then
         self.bat2:moveManually(dt, "s", "w")
     else
         self.bat2:moveAutomatically()
@@ -94,4 +94,12 @@ end
 function Game:drawLine()
     local tmp_m = ScreenWidth() / 2
     love.graphics.rectangle("fill", tmp_m - 1, 0, 2, ScreenHeight())
+end
+
+function Game:switchModeBat1()
+    self.bat1.manual = not self.bat1.manual
+end
+
+function Game:switchModeBat2()
+    self.bat2.manual = not self.bat2.manual
 end

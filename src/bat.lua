@@ -39,6 +39,22 @@ end
 
 --------------------------------------------------
 
+function Bat:getX()
+    return self.x
+end
+
+function Bat:getX2()
+    return self.x + self.w
+end
+
+function Bat:getY()
+    return self.y
+end
+
+function Bat:getY2()
+    return self.y + self.h
+end
+
 function Bat:setPosition(a, b)
     self.x = a
     self.y = b

@@ -1,30 +1,22 @@
-PlayerId = {
-    player = 1,
-    ai = 2
-}
 
 local myFont = love.graphics.newFont(45)
 
 Player = {
-    id = PlayerId.player,
+    manual = true,
     points = 0,
     x = 0,
     y = 25,
 }
 
-function Player:new(xPos, id)
+function Player:new(xPos, mode)
     local object = {}
     setmetatable(object, self)
     self.__index = self
     love.graphics.setFont(myFont)
 
     object.x = xPos
-    object.id = id
+    object.manual = mode
     return object
-end
-
-function Player:setPlayerId(id)
-    self.id = id
 end
 
 function Player:drawPoints()

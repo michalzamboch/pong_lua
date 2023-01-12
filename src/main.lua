@@ -25,5 +25,9 @@ function love.keypressed(key, scancode, isrepeat)
         GameCore:fullscreen()
     elseif key == "f6" then
         GameCore:pauseGame()
+    elseif key == "f9" then
+        GameCore:switchModeBat1()
+    elseif key == "f10" then
+        GameCore:switchModeBat2()
     end
 end

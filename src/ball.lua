@@ -2,7 +2,7 @@ require "physics"
 
 local BallSize = 20
 local DefX = love.graphics.getPixelWidth() / 2 - BallSize / 2
-local DefY = love.graphics.getPixelWidth() / 2 - BallSize / 2
+local DefY = love.graphics.getPixelHeight() / 2 - BallSize / 2
 local DefXSpeed = 150
 local DefYSpeed = -150
 
@@ -16,12 +16,23 @@ Ball = {
     ySpeed = DefYSpeed
 }
 
+local function RandomSpeed(minSpeed, maxSpeed)
+    local rng = love.math.newRandomGenerator(os.time())
+    local speed = rng:random(minSpeed, maxSpeed)
+
+    if rng:random(0, 100) < 50 then
+        return speed * (-1)
+    else
+        return speed
+    end
+end
+
 local function DefaultSettings(o)
-    o.x = love.graphics.getPixelWidth() / 2 - BallSize / 2
-    o.y = love.graphics.getPixelHeight() / 2 - BallSize / 2
+    o.x = love.graphics.getWidth() / 2 - BallSize / 2
+    o.y = love.graphics.getHeight() / 2 - BallSize / 2
     o.a = BallSize
-    o.xSpeed = DefXSpeed
-    o.ySpeed = DefYSpeed
+    o.xSpeed = RandomSpeed(175, 250)
+    o.ySpeed = RandomSpeed(125, 175)
 end
 
 function Ball:new(game)
@@ -49,22 +60,28 @@ function Ball:move()
     local tmp_x = self.x + self.xSpeed * dt
     local tmp_y = self.y + self.ySpeed * dt
 
-    self:BatCollision(tmp_x, tmp_y)
-    self:HorizontalWallCollision(tmp_y)
-    self:VerticalWallCollision(tmp_x)
+    self:HorizontalCollision(tmp_y)
+    self:VerticalCollision(tmp_x)
 end
 
 ---------------------------------------------------------------
 
-function Ball:BatCollision(tmp_x, tmp_y)
-    local bat1 = self.game.bat1
-    local bat2 = self.game.bat2
+function Ball:BatCollision(tmp_x)
+    self.x = tmp_x
 
+    if CollidesRect(self, self.game.bat1) then
+        self:invertXSpeed()
+        self.x = self.game.bat1:getX2()
+        return
+    end
 
-    return tmp_x, tmp_y
+    if CollidesRect(self, self.game.bat2) then
+        self:invertXSpeed()
+        self.x = self.game.bat2:getX() - self.a
+    end
 end
 
-function Ball:HorizontalWallCollision(tmp_y)
+function Ball:HorizontalCollision(tmp_y)
     local height = love.graphics.getPixelHeight()
 
     if tmp_y > (height - self.a) then
@@ -80,24 +97,34 @@ function Ball:HorizontalWallCollision(tmp_y)
     self.y = tmp_y
 end
 
-function Ball:VerticalWallCollision(tmp_x)
+function Ball:VerticalCollision(tmp_x)
     local width = love.graphics.getPixelWidth()
 
     if tmp_x > (width - self.a) then
-        self.x = width - self.a
-        self:invertXSpeed()
         self.game.player1:increasePoints()
-        -- self:reset()
-    end
-
-    if tmp_x < 0 then
-        self.x = 0
-        self:invertXSpeed()
+        self:reset()
+    elseif tmp_x < 0 then
         self.game.player2:increasePoints()
-        -- self:reset()
+        self:reset()
+    else
+        self:BatCollision(tmp_x)
     end
+end
 
-    self.x = tmp_x
+function Ball:getX()
+    return self.x
+end
+
+function Ball:getY()
+    return self.y
+end
+
+function Ball:getX2()
+    return self.x + self.a
+end
+
+function Ball:getY2()
+    return self.y + self.a
 end
 
 function Ball:setPosition(x, y)
