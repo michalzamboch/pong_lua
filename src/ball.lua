@@ -111,6 +111,8 @@ function Ball:VerticalCollision(tmp_x)
     end
 end
 
+---------------------------------------------------------------
+
 function Ball:getX()
     return self.x
 end
@@ -126,6 +128,8 @@ end
 function Ball:getY2()
     return self.y + self.a
 end
+
+---------------------------------------------------------------
 
 function Ball:setPosition(x, y)
     self.x = x
