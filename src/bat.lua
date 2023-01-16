@@ -9,7 +9,8 @@ Bat = {
     w = 20,
     h = 120,
     speed = 200,
-    acceleration = 10
+    acceleration = 10,
+    failConstatnt = 0
 }
 
 --------------------------------------------------
@@ -86,12 +87,29 @@ end
 function Bat:moveAutomatically()
     local dt = love.timer.getDelta()
     local ball = self.game.ball
-    local tmp_y = ball.y - self.h / 2
+    local tmp_y = (ball.y - self.h / 2)
 
     local tmp_h = love.graphics.getPixelHeight() - self.h
     if tmp_y > 0 and tmp_y < tmp_h then
         self.y = tmp_y
     end
+end
+
+function Bat:GetFailConstant()
+    if self.failConstatnt > 0 then
+        self.failConstatnt = self.failConstatnt - 1
+        return -1
+    elseif self.failConstatnt < 0 then
+        self.failConstatnt = self.failConstatnt + 1
+        return 1
+    else
+        return 0
+    end
+end
+
+function Bat:resetFailConstant()
+    local sheight = love.graphics.getPixelHeight()
+    self.failConstatnt = 0
 end
 
 function Bat:moveManually(dt, down, up)
@@ -104,13 +122,13 @@ end
 
 function Bat:up(dt)
     if self.y > 0 then
-        self.y = self.y - self.speed * dt
+        self.y = self.y - self.speed * dt * MotionConstant
     end
 end
 
 function Bat:down(dt)
     local tmp_h = love.graphics.getPixelHeight() - self.h
     if self.y < tmp_h then
-        self.y = self.y + self.speed * dt
+        self.y = self.y + self.speed * dt * MotionConstant
     end
 end

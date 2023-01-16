@@ -6,6 +6,16 @@ local DefY = love.graphics.getPixelHeight() / 2 - BallSize / 2
 local DefXSpeed = 150
 local DefYSpeed = -150
 
+local function RandomSpeed(minSpeed, maxSpeed)
+    local speed = Rng:random(minSpeed, maxSpeed)
+
+    if Rng:random(0, 100) < 50 then
+        return speed * (-1)
+    else
+        return speed
+    end
+end
+
 Ball = {
     game = {},
     x = DefX,
@@ -16,22 +26,11 @@ Ball = {
     ySpeed = DefYSpeed
 }
 
-local function RandomSpeed(minSpeed, maxSpeed)
-    local rng = love.math.newRandomGenerator(os.time())
-    local speed = rng:random(minSpeed, maxSpeed)
-
-    if rng:random(0, 100) < 50 then
-        return speed * (-1)
-    else
-        return speed
-    end
-end
-
 local function DefaultSettings(o)
     o.x = love.graphics.getWidth() / 2 - BallSize / 2
     o.y = love.graphics.getHeight() / 2 - BallSize / 2
     o.a = BallSize
-    o.xSpeed = RandomSpeed(175, 250)
+    o.xSpeed = RandomSpeed(225, 275)
     o.ySpeed = RandomSpeed(125, 175)
 end
 
@@ -57,8 +56,8 @@ end
 
 function Ball:move()
     local dt = love.timer.getDelta()
-    local tmp_x = self.x + self.xSpeed * dt
-    local tmp_y = self.y + self.ySpeed * dt
+    local tmp_x = self.x + self.xSpeed * dt * MotionConstant
+    local tmp_y = self.y + self.ySpeed * dt * MotionConstant
 
     self:HorizontalCollision(tmp_y)
     self:VerticalCollision(tmp_x)
@@ -72,12 +71,14 @@ function Ball:BatCollision(tmp_x)
     if CollidesRect(self, self.game.bat1) then
         self:invertXSpeed()
         self.x = self.game.bat1:getX2()
+        self.game.bat1:resetFailConstant()
         return
     end
 
     if CollidesRect(self, self.game.bat2) then
         self:invertXSpeed()
         self.x = self.game.bat2:getX() - self.a
+        self.game.bat2:resetFailConstant()
     end
 end
 
@@ -102,9 +103,13 @@ function Ball:VerticalCollision(tmp_x)
 
     if tmp_x > (width - self.a) then
         self.game.player1:increasePoints()
+        self.game.bat1:resetFailConstant()
+        self.game:checkScore()
         self:reset()
     elseif tmp_x < 0 then
         self.game.player2:increasePoints()
+        self.game.bat2:resetFailConstant()
+        self.game:checkScore()
         self:reset()
     else
         self:BatCollision(tmp_x)
@@ -130,6 +135,11 @@ function Ball:getY2()
 end
 
 ---------------------------------------------------------------
+
+function Ball:setRandomSpeed()
+    self.xSpeed = RandomSpeed(225, 275)
+    self.ySpeed = RandomSpeed(125, 175)
+end
 
 function Ball:setPosition(x, y)
     self.x = x

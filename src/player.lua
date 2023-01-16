@@ -1,6 +1,4 @@
 
-local myFont = love.graphics.newFont(45)
-
 Player = {
     manual = true,
     points = 0,
@@ -12,7 +10,6 @@ function Player:new(xPos, mode)
     local object = {}
     setmetatable(object, self)
     self.__index = self
-    love.graphics.setFont(myFont)
 
     object.x = xPos
     object.manual = mode
