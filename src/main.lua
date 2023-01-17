@@ -5,8 +5,10 @@ require "game"
 MyFontSize = 45
 local myFont = love.graphics.newFont(MyFontSize)
 
+SizeConstant = 1
+local manipulateSize = true
 MotionConstant = 1
-local manipulateMotion = false
+local manipulateMotion = true
 Rng = love.math.newRandomGenerator(os.time())
 
 ------------------------------------------------
@@ -33,21 +35,31 @@ function love.keypressed(key, scancode, isrepeat)
         AddMotion(-0.1)
     elseif key == "f2" then
         AddMotion(0.1)
+    elseif key == "f3" then
+        AddSize(-0.1)
+    elseif key == "f4" then
+        AddSize(0.1)
     elseif key == "f5" then
         GameCore:reset()
-    elseif key == "f11" then
-        GameCore:fullscreen()
     elseif key == "f6" then
         GameCore:pauseGame()
     elseif key == "f9" then
         GameCore:switchModeBat1()
     elseif key == "f10" then
         GameCore:switchModeBat2()
+    elseif key == "f11" then
+        GameCore:fullscreen()
     end
 end
 
 function AddMotion(value)
     if manipulateMotion then
         MotionConstant = MotionConstant + value
+    end
+end
+
+function AddSize(value)
+    if manipulateSize then
+        SizeConstant = SizeConstant + value
     end
 end

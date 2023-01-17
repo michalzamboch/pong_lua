@@ -9,8 +9,7 @@ Bat = {
     w = 20,
     h = 120,
     speed = 200,
-    acceleration = 10,
-    failConstatnt = 0
+    speedAi = 100
 }
 
 --------------------------------------------------
@@ -20,7 +19,7 @@ function DefaultSettings(o)
     o.h = 120
     o.y = love.graphics.getPixelHeight() / 2 - o.h / 2
     o.speed = 200
-    o.acceleration = 10
+    o.speedAi = 100
 end
 
 function Bat:new(game, xPos)
@@ -84,51 +83,47 @@ function Bat:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
 end
 
+function Bat:towardsMe()
+    local ball = self.game.ball
+    local a1 = self.x > (ball.x - ball.a / 2) and ball.xSpeed > 0
+    local a2 = self.x < (ball.x - ball.a / 2) and ball.xSpeed < 0
+    return (a1 or a2)
+end
+
 function Bat:moveAutomatically()
     local dt = love.timer.getDelta()
     local ball = self.game.ball
-    local tmp_y = (ball.y - self.h / 2)
+    local ball_y = ball.y + ball.a / 2
+    local bat_mid = self.y + self.h / 2
 
-    local tmp_h = love.graphics.getPixelHeight() - self.h
-    if tmp_y > 0 and tmp_y < tmp_h then
-        self.y = tmp_y
+    if not self:towardsMe() then
+        return
     end
-end
 
-function Bat:GetFailConstant()
-    if self.failConstatnt > 0 then
-        self.failConstatnt = self.failConstatnt - 1
-        return -1
-    elseif self.failConstatnt < 0 then
-        self.failConstatnt = self.failConstatnt + 1
-        return 1
-    else
-        return 0
+    if bat_mid > ball_y then
+        self:up(dt, self.speedAi)
+    elseif bat_mid < ball_y then
+        self:down(dt, self.speedAi)
     end
-end
-
-function Bat:resetFailConstant()
-    local sheight = love.graphics.getPixelHeight()
-    self.failConstatnt = 0
 end
 
 function Bat:moveManually(dt, down, up)
     if love.keyboard.isDown(down) then
-        self:down(dt)
+        self:down(dt, self.speed)
     elseif love.keyboard.isDown(up) then
-        self:up(dt)
+        self:up(dt, self.speed)
     end
 end
 
-function Bat:up(dt)
+function Bat:up(dt, sp)
     if self.y > 0 then
-        self.y = self.y - self.speed * dt * MotionConstant
+        self.y = self.y - sp * dt * MotionConstant
     end
 end
 
-function Bat:down(dt)
+function Bat:down(dt, sp)
     local tmp_h = love.graphics.getPixelHeight() - self.h
     if self.y < tmp_h then
-        self.y = self.y + self.speed * dt * MotionConstant
+        self.y = self.y + sp * dt * MotionConstant
     end
 end

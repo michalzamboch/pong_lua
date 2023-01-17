@@ -71,14 +71,12 @@ function Ball:BatCollision(tmp_x)
     if CollidesRect(self, self.game.bat1) then
         self:invertXSpeed()
         self.x = self.game.bat1:getX2()
-        self.game.bat1:resetFailConstant()
         return
     end
 
     if CollidesRect(self, self.game.bat2) then
         self:invertXSpeed()
         self.x = self.game.bat2:getX() - self.a
-        self.game.bat2:resetFailConstant()
     end
 end
 
@@ -103,12 +101,10 @@ function Ball:VerticalCollision(tmp_x)
 
     if tmp_x > (width - self.a) then
         self.game.player1:increasePoints()
-        self.game.bat1:resetFailConstant()
         self.game:checkScore()
         self:reset()
     elseif tmp_x < 0 then
         self.game.player2:increasePoints()
-        self.game.bat2:resetFailConstant()
         self.game:checkScore()
         self:reset()
     else
