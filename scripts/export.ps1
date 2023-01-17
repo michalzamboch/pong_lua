@@ -8,6 +8,7 @@ $tmpZipFile = "love-win64.zip"
 $destination = "."
 
 $loveExecutable = $exportFolder + "\love.exe"
+$exportLoveFile = $exportFolder + "\" + $loveFile
 
 # ------------------------------------------------------------------
 
@@ -41,9 +42,11 @@ function MoveLoveFile() {
 }
 
 function MakeExeFile() {
-    #copy
-    #Get-Content -Path $file -Encoding Byte
-    #Get-Content $loveExecutable, ($exportFolder + "\" + $loveFile) | Set-Content game.exe -Encoding Bin
+    $cmdToRun = "copy /b " + $loveExecutable + " + " + $exportLoveFile + " game.exe"
+    Write-Host "After opening Command Line run this command:" -ForegroundColor Cyan
+    Write-Host $cmdToRun -ForegroundColor Cyan
+    Write-Host
+    cmd.exe
 }
 
 # ------------------------------------------------------------------
