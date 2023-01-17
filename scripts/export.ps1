@@ -2,16 +2,54 @@
 
 $zipFile = "game.zip"
 $loveFile = "game.love"
+$url = "https://github.com/love2d/love/releases/download/11.4/love-11.4-win64.zip"
+$exportFolder = "love-11.4-win64"
+$tmpZipFile = "love-win64.zip"
+$destination = "."
+
+$loveExecutable = $exportFolder + "\love.exe"
 
 # ------------------------------------------------------------------
 
-if (Test-Path $zipFile) {
-    Remove-Item $zipFile
+function Cleanup() {
+    if (Test-Path $zipFile) {
+        Remove-Item $zipFile
+    }
+
+    if (Test-Path $loveFile) {
+        Remove-Item $loveFile
+    }
+
+    if (Test-Path $exportFolder) {
+        Remove-Item $exportFolder -Force -Recurse
+    }
 }
 
-if (Test-Path $loveFile) {
-    Remove-Item $loveFile
+function MakeLoveFile() {
+    Compress-Archive -Path ..\src\* -DestinationPath $zipFile
+    Rename-Item -Path $zipFile -NewName $loveFile
 }
 
-Compress-Archive -Path ..\src\* -DestinationPath $zipFile
-Rename-Item -Path $zipFile -NewName $loveFile
+function MakeTargetDirectory() {
+    Invoke-WebRequest -URI $url -OutFile $tmpZipFile
+    Expand-Archive -Path $tmpZipFile -DestinationPath $destination -Force
+    Remove-Item $tmpZipFile
+}
+
+function MoveLoveFile() {
+    Move-Item -Path $loveFile -Destination $exportFolder
+}
+
+function MakeExeFile() {
+    #copy
+    #Get-Content -Path $file -Encoding Byte
+    #Get-Content $loveExecutable, ($exportFolder + "\" + $loveFile) | Set-Content game.exe -Encoding Bin
+}
+
+# ------------------------------------------------------------------
+
+Cleanup
+MakeLoveFile
+MakeTargetDirectory
+MoveLoveFile
+MakeExeFile

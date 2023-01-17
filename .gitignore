@@ -45,3 +45,4 @@ luac.out
 # Folders
 /.vscode
 /test
+/scripts/love-*-win64
