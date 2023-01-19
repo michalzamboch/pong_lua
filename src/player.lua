@@ -1,4 +1,4 @@
-require "constants"
+require "configuration"
 
 Player = {
     manual = true,

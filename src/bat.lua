@@ -11,7 +11,7 @@ Bat = {
 
 --------------------------------------------------
 
-function DefaultSettings(o)
+local function DefaultSettings(o)
     o.w = BatWidth
     o.h = BatHeight
     o.y = BatPositionY

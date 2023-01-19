@@ -1,15 +1,7 @@
 require "bat"
 require "ball"
 require "player"
-require "constants"
-
-function ScreenWidth()
-    return love.graphics.getPixelWidth()
-end
-
-function ScreenHeight()
-    return love.graphics.getPixelHeight()
-end
+require "configuration"
 
 -------------------------------------------------------------
 
@@ -34,8 +26,8 @@ function Game:new()
 
     object.bat1 = Bat:new(object, BatStartPosition)
     object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2)
-    object.player1 = Player:new(ScorePosition, true)
-    object.player2 = Player:new(ScorePosition * 3, false)
+    object.player1 = Player:new(ScorePosition, PlayerMode1)
+    object.player2 = Player:new(ScorePosition * 3, PlayerMode2)
     object.ball = Ball:new(object)
 
     return object
@@ -88,13 +80,13 @@ end
 
 function Game:moveBats(dt)
     if self.player1.manual then
-        self.bat1:moveManually(dt, "down", "up")
+        self.bat1:moveManually(dt, Player1Down, Player1Up)
     else
         self.bat1:moveAutomatically()
     end
 
     if self.player2.manual then
-        self.bat2:moveManually(dt, "s", "w")
+        self.bat2:moveManually(dt, Player2Down, Player2Up)
     else
         self.bat2:moveAutomatically()
     end

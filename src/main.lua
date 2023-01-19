@@ -1,5 +1,5 @@
 require "game"
-require "constants"
+require "configuration"
 
 ------------------------------------------------
 

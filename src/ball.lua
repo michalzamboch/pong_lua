@@ -1,5 +1,5 @@
 require "physics"
-require "constants"
+require "configuration"
 
 Ball = {
     game = {},
@@ -12,8 +12,8 @@ Ball = {
 }
 
 local function DefaultSettings(o)
-    o.x = love.graphics.getWidth() / 2 - BallSize / 2
-    o.y = love.graphics.getHeight() / 2 - BallSize / 2
+    o.x = ScreenWidth() / 2 - BallSize / 2
+    o.y = ScreenHeight() / 2 - BallSize / 2
     o.a = BallSize
     o.xSpeed = RandomSpeedX()
     o.ySpeed = RandomSpeedY()
