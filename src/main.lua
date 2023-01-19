@@ -1,21 +1,11 @@
 require "game"
-
-------------------------------------------------
-
-MyFontSize = 45
-local myFont = love.graphics.newFont(MyFontSize)
-
-SizeConstant = 1
-local manipulateSize = true
-MotionConstant = 1
-local manipulateMotion = true
-Rng = love.math.newRandomGenerator(os.time())
+require "constants"
 
 ------------------------------------------------
 
 function love.load()
     love.graphics.setColor(255, 255, 255)
-    love.graphics.setFont(myFont)
+    love.graphics.setFont(GeneralFont)
 
     GameCore = Game:new()
 end
@@ -53,13 +43,13 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function AddMotion(value)
-    if manipulateMotion then
+    if ManipulateMotion then
         MotionConstant = MotionConstant + value
     end
 end
 
 function AddSize(value)
-    if manipulateSize then
+    if ManipulateSize then
         SizeConstant = SizeConstant + value
     end
 end

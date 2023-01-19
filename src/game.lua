@@ -12,11 +12,6 @@ end
 
 -------------------------------------------------------------
 
-local ScorePosition = ScreenWidth() / 4
-local BatHeight = 140
-local BatStartPosition = 25
-local BatPosY = love.graphics.getPixelHeight() / 2 - BatHeight / 2
-
 GameState = {
     unknown = 0,
     playing = 1,
@@ -26,7 +21,7 @@ GameState = {
 
 Game = {
     state = GameState.playing,
-    maxPoints = 10,
+    maxPoints = MaxPoints,
 }
 
 -------------------------------------------------------------
