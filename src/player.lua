@@ -1,9 +1,10 @@
+require "constants"
 
 Player = {
     manual = true,
     points = 0,
     x = 0,
-    y = 25,
+    y = PointsPositionY,
 }
 
 function Player:new(xPos, mode)

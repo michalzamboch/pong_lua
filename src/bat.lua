@@ -1,25 +1,22 @@
-ScreenHeight = love.graphics.getPixelHeight()
-ScreenWidth = love.graphics.getPixelWidth()
-BatPosY = (ScreenHeight / 2) - 120 / 2
 
 Bat = {
     game = {},
     x = 0,
-    y = BatPosY,
-    w = 20,
-    h = 120,
-    speed = 200,
-    speedAi = 100
+    y = BatPositionY,
+    w = BatWidth,
+    h = BatHeight,
+    speed = BatSpeed,
+    speedAi = BatSpeedAi
 }
 
 --------------------------------------------------
 
 function DefaultSettings(o)
-    o.w = 20
-    o.h = 120
-    o.y = love.graphics.getPixelHeight() / 2 - o.h / 2
-    o.speed = 200
-    o.speedAi = 100
+    o.w = BatWidth
+    o.h = BatHeight
+    o.y = BatPositionY
+    o.speed = BatSpeed
+    o.speedAi = BatSpeedAi
 end
 
 function Bat:new(game, xPos)

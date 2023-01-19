@@ -1,6 +1,7 @@
 require "bat"
 require "ball"
 require "player"
+require "constants"
 
 function ScreenWidth()
     return love.graphics.getPixelWidth()

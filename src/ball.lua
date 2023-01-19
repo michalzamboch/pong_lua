@@ -1,37 +1,22 @@
 require "physics"
-
-local BallSize = 20
-local DefX = love.graphics.getPixelWidth() / 2 - BallSize / 2
-local DefY = love.graphics.getPixelHeight() / 2 - BallSize / 2
-local DefXSpeed = 150
-local DefYSpeed = -150
-
-local function RandomSpeed(minSpeed, maxSpeed)
-    local speed = Rng:random(minSpeed, maxSpeed)
-
-    if Rng:random(0, 100) < 50 then
-        return speed * (-1)
-    else
-        return speed
-    end
-end
+require "constants"
 
 Ball = {
     game = {},
-    x = DefX,
-    y = DefY,
+    x = BallPositionX,
+    y = BallPositionY,
     a = BallSize,
 
-    xSpeed = DefXSpeed,
-    ySpeed = DefYSpeed
+    xSpeed = RandomSpeedX(),
+    ySpeed = RandomSpeedY()
 }
 
 local function DefaultSettings(o)
     o.x = love.graphics.getWidth() / 2 - BallSize / 2
     o.y = love.graphics.getHeight() / 2 - BallSize / 2
     o.a = BallSize
-    o.xSpeed = RandomSpeed(225, 275)
-    o.ySpeed = RandomSpeed(125, 175)
+    o.xSpeed = RandomSpeedX()
+    o.ySpeed = RandomSpeedY()
 end
 
 function Ball:new(game)
