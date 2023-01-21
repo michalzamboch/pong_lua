@@ -50,6 +50,18 @@ end
 
 ---------------------------------------------------------------
 
+function Ball:getCurrentSpeed(player, bat)
+    if player.manual then
+        return bat.speed
+    else
+        return bat.speedAi
+    end
+end
+
+function Ball:addCollisionSpeedY(player, bat)
+    self.ySpeed = self.ySpeed - self:getCurrentSpeed(player, bat) / 2
+end
+
 function Ball:BatCollision(tmp_x)
     self.x = tmp_x
 
@@ -118,8 +130,8 @@ end
 ---------------------------------------------------------------
 
 function Ball:setRandomSpeed()
-    self.xSpeed = RandomSpeed(225, 275)
-    self.ySpeed = RandomSpeed(125, 175)
+    self.xSpeed = RandomSpeedX()
+    self.ySpeed = RandomSpeedY()
 end
 
 function Ball:setPosition(x, y)
