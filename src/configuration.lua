@@ -43,8 +43,10 @@ Player2Down = "down"
 BallSize = 20
 BallPositionX = ScreenWidth() / 2 - BallSize / 2
 BallPositionY = ScreenHeight() / 2 - BallSize / 2
-BallSpeedX = 150
-BallSpeedY = -150
+BallMinSpeedX = 225
+BallMaxSpeedX = 275
+BallMinSpeedY = 125
+BallMaxSpeedY = 150
 
 function RandomSpeed(minSpeed, maxSpeed)
     local speed = Rng:random(minSpeed, maxSpeed)
@@ -57,9 +59,9 @@ function RandomSpeed(minSpeed, maxSpeed)
 end
 
 function RandomSpeedX()
-    return RandomSpeed(225, 275)
+    return RandomSpeed(BallMinSpeedX, BallMinSpeedX)
 end
 
 function RandomSpeedY()
-    return RandomSpeed(125, 175)
+    return RandomSpeed(BallMinSpeedY, BallMinSpeedY)
 end
