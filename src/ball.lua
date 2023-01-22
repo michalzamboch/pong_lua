@@ -8,7 +8,9 @@ Ball = {
     a = BallSize,
 
     xSpeed = RandomSpeedX(),
-    ySpeed = RandomSpeedY()
+    ySpeed = RandomSpeedY(),
+    bounce = false,
+    sound = love.audio.newSource("assets/bounce.mp3", "static")
 }
 
 local function DefaultSettings(o)
@@ -46,6 +48,11 @@ function Ball:move()
 
     self:HorizontalCollision(tmp_y)
     self:VerticalCollision(tmp_x)
+
+    if self.bounce then
+        self.sound:play()
+    end
+    self.bounce = false
 end
 
 ---------------------------------------------------------------
@@ -68,6 +75,7 @@ function Ball:BatCollision(tmp_x)
         self:invertXSpeed()
         self:addCollisionSpeed(self.game.bat1)
         self.x = self.game.bat1:getX2()
+        self.bounce = true
         return
     end
 
@@ -75,6 +83,7 @@ function Ball:BatCollision(tmp_x)
         self:invertXSpeed()
         self:addCollisionSpeed(self.game.bat2)
         self.x = self.game.bat2:getX() - self.a
+        self.bounce = true
     end
 end
 
@@ -84,11 +93,13 @@ function Ball:HorizontalCollision(tmp_y)
     if tmp_y > (height - self.a) then
         tmp_y = height - self.a
         self:invertYSpeed()
+        self.bounce = true
     end
 
     if tmp_y < 0 then
         tmp_y = 0
         self:invertYSpeed()
+        self.bounce = true
     end
 
     self.y = tmp_y
