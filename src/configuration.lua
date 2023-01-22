@@ -62,3 +62,8 @@ end
 function RandomSpeedY()
     return RandomSpeed(BallMinSpeedY, BallMinSpeedY)
 end
+
+-- Bullet
+DefaultBulletCount = 10
+BulletRadius = 10
+BulletSpeed = 50
