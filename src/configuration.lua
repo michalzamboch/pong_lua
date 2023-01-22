@@ -51,8 +51,8 @@ BallMaxSpeedY = 150
 function RandomSpeed(minSpeed, maxSpeed)
     local speed = Rng:random(minSpeed, maxSpeed)
 
-    local indexes = {-1, 1}
-    return speed * indexes[ math.random( #indexes ) ]
+    local indexes = { -1, 1 }
+    return speed * indexes[math.random(#indexes)]
 end
 
 function RandomSpeedX()

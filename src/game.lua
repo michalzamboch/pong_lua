@@ -24,10 +24,10 @@ function Game:new()
     setmetatable(object, self)
     self.__index = self
 
-    object.bat1 = Bat:new(object, BatStartPosition)
-    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2)
-    object.player1 = Player:new(ScorePosition, PlayerMode1)
-    object.player2 = Player:new(ScorePosition * 3, PlayerMode2)
+    object.bat1 = Bat:new(object, BatStartPosition, PlayerMode1)
+    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2, PlayerMode2)
+    object.player1 = Player:new(ScorePosition)
+    object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
 
     return object
@@ -73,23 +73,14 @@ end
 
 function Game:update(dt)
     if self.state == GameState.playing then
-        self:moveBats(dt)
+        self:moveBats()
         self.ball:move()
     end
 end
 
-function Game:moveBats(dt)
-    if self.player1.manual then
-        self.bat1:moveManually(dt, Player1Down, Player1Up)
-    else
-        self.bat1:moveAutomatically()
-    end
-
-    if self.player2.manual then
-        self.bat2:moveManually(dt, Player2Down, Player2Up)
-    else
-        self.bat2:moveAutomatically()
-    end
+function Game:moveBats()
+    self.bat1:move(Player1Down, Player1Up)
+    self.bat2:move(Player2Down, Player2Up)
 end
 
 function Game:reset()
@@ -138,11 +129,11 @@ function Game:drawLine()
 end
 
 function Game:switchModeBat1()
-    self.player1.manual = not self.player1.manual
+    self.bat1:switchMode()
 end
 
 function Game:switchModeBat2()
-    self.player2.manual = not self.player2.manual
+    self.bat2:switchMode()
 end
 
 function Game:checkScore()

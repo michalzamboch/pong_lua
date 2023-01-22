@@ -1,19 +1,17 @@
 require "configuration"
 
 Player = {
-    manual = true,
     points = 0,
     x = 0,
     y = PointsPositionY,
 }
 
-function Player:new(xPos, mode)
+function Player:new(xPos)
     local object = {}
     setmetatable(object, self)
     self.__index = self
 
     object.x = xPos
-    object.manual = mode
     return object
 end
 

@@ -1,6 +1,7 @@
-
 Bat = {
     game = {},
+    manual = true,
+    moving = false,
     x = 0,
     y = BatPositionY,
     w = BatWidth,
@@ -17,9 +18,10 @@ local function DefaultSettings(o)
     o.y = BatPositionY
     o.speed = BatSpeed
     o.speedAi = BatSpeedAi
+    o.moving = false
 end
 
-function Bat:new(game, xPos)
+function Bat:new(game, xPos, manual)
     local object = {}
     setmetatable(object, self)
     self.__index = self
@@ -27,6 +29,7 @@ function Bat:new(game, xPos)
     DefaultSettings(object)
     object.x = xPos
     object.game = game
+    object.manual = manual
     return object
 end
 
@@ -50,6 +53,14 @@ end
 
 function Bat:getY2()
     return self.y + self.h
+end
+
+function Bat:getCurrentSpeed()
+    if self.manual then
+        return self.speed
+    else
+        return self.speedAi
+    end
 end
 
 function Bat:setPosition(a, b)
@@ -80,6 +91,21 @@ function Bat:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
 end
 
+function Bat:move(down, up)
+    local dt = love.timer.getDelta()
+    if self.manual then
+        self:moveManually(dt, down, up)
+    else
+        self:moveAutomatically(dt)
+    end
+end
+
+function Bat:switchMode()
+    self.manual = not self.manual
+end
+
+--------------------------------------------------
+
 function Bat:towardsMe()
     local ball = self.game.ball
     local a1 = self.x > (ball.x - ball.a / 2) and ball.xSpeed > 0
@@ -87,8 +113,7 @@ function Bat:towardsMe()
     return (a1 or a2)
 end
 
-function Bat:moveAutomatically()
-    local dt = love.timer.getDelta()
+function Bat:moveAutomatically(dt)
     local ball = self.game.ball
     local ball_y = ball.y + ball.a / 2
     local bat_mid = self.y + self.h / 2
@@ -104,17 +129,22 @@ function Bat:moveAutomatically()
     end
 end
 
+--------------------------------------------------
+
 function Bat:moveManually(dt, down, up)
     if love.keyboard.isDown(down) then
         self:down(dt, self.speed)
     elseif love.keyboard.isDown(up) then
         self:up(dt, self.speed)
+    else
+        self.moving = false
     end
 end
 
 function Bat:up(dt, sp)
     if self.y > 0 then
         self.y = self.y - sp * dt * MotionConstant
+        self.moving = true
     end
 end
 
@@ -122,5 +152,6 @@ function Bat:down(dt, sp)
     local tmp_h = love.graphics.getPixelHeight() - self.h
     if self.y < tmp_h then
         self.y = self.y + sp * dt * MotionConstant
+        self.moving = true
     end
 end

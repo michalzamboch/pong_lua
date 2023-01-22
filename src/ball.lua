@@ -50,16 +50,15 @@ end
 
 ---------------------------------------------------------------
 
-function Ball:getCurrentSpeed(player, bat)
-    if player.manual then
-        return bat.speed
-    else
-        return bat.speedAi
+function Ball:addCollisionSpeed(bat)
+    if bat.moving then
+        self.ySpeed = self.ySpeed - bat:getCurrentSpeed() / 2
+        if self.xSpeed > 0 then
+            self.xSpeed = self.xSpeed + 10
+        else
+            self.xSpeed = self.xSpeed - 10
+        end
     end
-end
-
-function Ball:addCollisionSpeedY(player, bat)
-    self.ySpeed = self.ySpeed - self:getCurrentSpeed(player, bat) / 2
 end
 
 function Ball:BatCollision(tmp_x)
@@ -67,12 +66,14 @@ function Ball:BatCollision(tmp_x)
 
     if CollidesRect(self, self.game.bat1) then
         self:invertXSpeed()
+        self:addCollisionSpeed(self.game.bat1)
         self.x = self.game.bat1:getX2()
         return
     end
 
     if CollidesRect(self, self.game.bat2) then
         self:invertXSpeed()
+        self:addCollisionSpeed(self.game.bat2)
         self.x = self.game.bat2:getX() - self.a
     end
 end
