@@ -9,8 +9,7 @@ Ball = {
 
     xSpeed = RandomSpeedX(),
     ySpeed = RandomSpeedY(),
-    bounce = false,
-    sound = love.audio.newSource("assets/bounce.mp3", "static")
+    bounce = false
 }
 
 local function DefaultSettings(o)
@@ -50,7 +49,7 @@ function Ball:move()
     self:VerticalCollision(tmp_x)
 
     if self.bounce then
-        self.sound:play()
+        PlaySound(BounceSound)
     end
     self.bounce = false
 end

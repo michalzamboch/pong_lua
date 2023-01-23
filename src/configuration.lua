@@ -8,6 +8,12 @@ function ScreenHeight()
     return love.graphics.getPixelHeight()
 end
 
+function PlaySound(sound)
+    if not Mute then
+        sound:play()
+    end
+end
+
 MyFontSize = 45
 GeneralFont = love.graphics.newFont(MyFontSize)
 
@@ -17,6 +23,15 @@ ManipulateSize = true
 MotionConstant = 1
 ManipulateMotion = true
 Rng = love.math.newRandomGenerator(os.time())
+
+Mute = false
+Volume = 0.5
+BounceSound = love.audio.newSource("assets/bounce.mp3", "static")
+BounceSound:setVolume(Volume)
+PointUpSound = love.audio.newSource("assets/score.mp3", "static")
+PointUpSound:setVolume(Volume)
+WinSound = love.audio.newSource("assets/win.mp3", "static")
+WinSound:setVolume(Volume)
 
 -- Game
 ScorePosition = ScreenWidth() / 4

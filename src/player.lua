@@ -21,6 +21,7 @@ end
 
 function Player:increasePoints()
     self.points = self.points + 1
+    PlaySound(PointUpSound)
 end
 
 function Player:reset()

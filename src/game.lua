@@ -139,5 +139,6 @@ end
 function Game:checkScore()
     if self.player1.points >= self.maxPoints or self.player2.points >= self.maxPoints then
         self.state = GameState.ended
+        PlaySound(WinSound)
     end
 end
