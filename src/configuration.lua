@@ -8,12 +8,6 @@ function ScreenHeight()
     return love.graphics.getPixelHeight()
 end
 
-function PlaySound(sound)
-    if not Mute then
-        sound:play()
-    end
-end
-
 MyFontSize = 45
 GeneralFont = love.graphics.newFont(MyFontSize)
 
@@ -26,12 +20,6 @@ Rng = love.math.newRandomGenerator(os.time())
 
 Mute = false
 Volume = 0.5
-BounceSound = love.audio.newSource("assets/bounce.mp3", "static")
-BounceSound:setVolume(Volume)
-PointUpSound = love.audio.newSource("assets/score.mp3", "static")
-PointUpSound:setVolume(Volume)
-WinSound = love.audio.newSource("assets/win.mp3", "static")
-WinSound:setVolume(Volume)
 
 -- Game
 ScorePosition = ScreenWidth() / 4
@@ -39,6 +27,9 @@ BatStartPosition = 25
 MaxPoints = 10
 PlayerMode1 = true
 PlayerMode2 = false
+
+-- Server
+
 
 -- Bat
 BatHeight = 120
@@ -62,21 +53,6 @@ BallMinSpeedX = 225
 BallMaxSpeedX = 275
 BallMinSpeedY = 125
 BallMaxSpeedY = 150
-
-function RandomSpeed(minSpeed, maxSpeed)
-    local speed = Rng:random(minSpeed, maxSpeed)
-
-    local indexes = { -1, 1 }
-    return speed * indexes[math.random(#indexes)]
-end
-
-function RandomSpeedX()
-    return RandomSpeed(BallMinSpeedX, BallMinSpeedX)
-end
-
-function RandomSpeedY()
-    return RandomSpeed(BallMinSpeedY, BallMinSpeedY)
-end
 
 -- Bullet
 DefaultBulletCount = 10

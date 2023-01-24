@@ -12,9 +12,23 @@ GameState = {
     ended = 3,
 }
 
+GameNetSettings = {
+    single = 0,
+    multiLocal = 1,
+    multiLan = 2
+}
+
+NetRole = {
+    unknown = 0,
+    client = 1,
+    server = 2
+}
+
 Game = {
     state = GameState.playing,
     maxPoints = MaxPoints,
+    gameNetSettings = GameNetSettings.single,
+    netRole = NetRole.unknown
 }
 
 -------------------------------------------------------------
@@ -23,15 +37,27 @@ function Game:new()
     local object = {}
     setmetatable(object, self)
     self.__index = self
+    local plMode1, plMode2 = PlayerMode1, PlayerMode2
 
-    object.bat1 = Bat:new(object, BatStartPosition, PlayerMode1)
-    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2, PlayerMode2)
+    if self.gameNetSettings == GameNetSettings.single then
+        plMode1, plMode2 = true, false
+    elseif self.gameNetSettings == GameNetSettings.multiLocal then
+        plMode1, plMode2 = true, true
+    else
+        plMode1, plMode2 = true, true
+        self.netRole = CurrentNetRole
+    end
+
+    object.bat1 = Bat:new(object, BatStartPosition, plMode1)
+    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2, plMode2)
     object.player1 = Player:new(ScorePosition)
     object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
 
     return object
 end
+
+-------------------------------------------------------------
 
 function Game:draw()
     if self.state == GameState.playing or self.state == GameState.paused then
@@ -71,7 +97,25 @@ function Game:drawError()
     love.graphics.print("Game is in unknown state.")
 end
 
-function Game:update(dt)
+-------------------------------------------------------------
+
+function Game:update()
+    if self.gameNetSettings == GameNetSettings.multiLan then
+        self:updateLan()
+    else
+        self:updateLocal()
+    end
+end
+
+function Game:updateLan()
+    if self.netRole == NetRole.server then
+
+    else
+
+    end
+end
+
+function Game:updateLocal()
     if self.state == GameState.playing then
         self:moveBats()
         self.ball:move()
@@ -90,25 +134,6 @@ function Game:reset()
     self.player1:reset()
     self.player2:reset()
     self.state = GameState.playing
-end
-
-function Game:fullscreen()
-    Fullscreen = not Fullscreen
-    love.window.setFullscreen(Fullscreen)
-    if Fullscreen then
-        MotionConstant = 2
-    else
-        MotionConstant = 1
-    end
-
-    local vertical = ScreenHeight() / 2 - self.bat1.h / 2
-
-    self.bat1:setVerticalPos(vertical)
-    self.bat2:setHorizontalPos(ScreenWidth() - self.bat2.w * 2)
-    self.bat2:setVerticalPos(vertical)
-    self.player1.x = ScreenWidth() / 4
-    self.player2.x = self.player1.x * 3
-    self.ball:reset()
 end
 
 function Game:pauseGame()

@@ -1,17 +1,27 @@
 require "game"
 require "configuration"
+Socket = require "socket"
 
 ------------------------------------------------
 
 function love.load()
+    CurrentNetRole = NetRole.client
+
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(GeneralFont)
+
+    BounceSound = love.audio.newSource("assets/bounce.mp3", "static")
+    BounceSound:setVolume(Volume)
+    PointUpSound = love.audio.newSource("assets/score.mp3", "static")
+    PointUpSound:setVolume(Volume)
+    WinSound = love.audio.newSource("assets/win.mp3", "static")
+    WinSound:setVolume(Volume)
 
     GameCore = Game:new()
 end
 
 function love.update(dt)
-    GameCore:update(dt)
+    GameCore:update()
 end
 
 function love.draw()
@@ -37,8 +47,6 @@ function love.keypressed(key, scancode, isrepeat)
         GameCore:switchModeBat1()
     elseif key == "f10" then
         GameCore:switchModeBat2()
-    elseif key == "f11" then
-        GameCore:fullscreen()
     end
 end
 
@@ -51,5 +59,11 @@ end
 function AddSize(value)
     if ManipulateSize then
         SizeConstant = SizeConstant + value
+    end
+end
+
+function PlaySound(sound)
+    if not Mute then
+        sound:play()
     end
 end

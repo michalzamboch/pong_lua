@@ -1,6 +1,23 @@
 require "physics"
 require "configuration"
 
+function RandomSpeed(minSpeed, maxSpeed)
+    local speed = Rng:random(minSpeed, maxSpeed)
+
+    local indexes = { -1, 1 }
+    return speed * indexes[math.random(#indexes)]
+end
+
+function RandomSpeedX()
+    return RandomSpeed(BallMinSpeedX, BallMinSpeedX)
+end
+
+function RandomSpeedY()
+    return RandomSpeed(BallMinSpeedY, BallMinSpeedY)
+end
+
+---------------------------------------------------------------
+
 Ball = {
     game = {},
     x = BallPositionX,
@@ -52,6 +69,15 @@ function Ball:move()
         PlaySound(BounceSound)
     end
     self.bounce = false
+end
+
+function Ball:copy(object)
+    self.x = object.x
+    self.y = object.y
+    self.a = object.a
+    self.xSpeed = object.xSpeed
+    self.ySpeed = object.ySpeed
+    self.bounce = object.bounce
 end
 
 ---------------------------------------------------------------

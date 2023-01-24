@@ -104,6 +104,10 @@ function Bat:switchMode()
     self.manual = not self.manual
 end
 
+function Bat:copy(object)
+    
+end
+
 --------------------------------------------------
 
 function Bat:towardsMe()
