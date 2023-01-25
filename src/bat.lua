@@ -10,6 +10,17 @@ Bat = {
     speedAi = BatSpeedAi
 }
 
+--[[
+manual
+moving
+x
+y
+w
+h
+speed
+speedAi
+]]
+
 --------------------------------------------------
 
 local function DefaultSettings(o)
@@ -104,8 +115,40 @@ function Bat:switchMode()
     self.manual = not self.manual
 end
 
+--------------------------------------------------
+
 function Bat:copy(object)
-    
+    self.manual = object.manual
+    self.moving = object.moving
+    self.x = object.x
+    self.y = object.y
+    self.w = object.w
+    self.h = object.h
+    self.speed = object.speed
+    self.speedAi = object.speedAi
+end
+
+function Bat:toString()
+    return tostring(self.manual) .. " " ..
+        tostring(self.moving) .. " " ..
+        tostring(self.x) .. " " ..
+        tostring(self.y) .. " " ..
+        tostring(self.w) .. " " ..
+        tostring(self.h) .. " " ..
+        tostring(self.speed) .. " " ..
+        tostring(self.speedAi)
+end
+
+function Bat:fromString(string)
+    local data = Split(string, " ");
+    self.manual = toboolean(data[1])
+    self.moving = toboolean(data[2])
+    self.x = tonumber(data[3])
+    self.y = tonumber(data[4])
+    self.w = tonumber(data[5])
+    self.h = tonumber(data[6])
+    self.speed = tonumber(data[7])
+    self.speedAi = tonumber(data[8])
 end
 
 --------------------------------------------------

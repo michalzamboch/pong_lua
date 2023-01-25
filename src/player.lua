@@ -6,6 +6,14 @@ Player = {
     y = PointsPositionY,
 }
 
+--[[
+points
+x
+y
+]]
+
+---------------------------------------------------------------
+
 function Player:new(xPos)
     local object = {}
     setmetatable(object, self)
@@ -30,4 +38,25 @@ end
 
 function Player:setPosition(x)
     self.x = x
+end
+
+---------------------------------------------------------------
+
+function Player:toString()
+    return tostring(self.points) .. " " ..
+        tostring(self.x) .. " " ..
+        tostring(self.y)
+end
+
+function Player:fromString(string)
+    local data = Split(string, " ")
+    self.points = tonumber(data[1])
+    self.x = tonumber(data[2])
+    self.y = tonumber(data[3])
+end
+
+function Player:copy(object)
+    self.x = object.x
+    self.y = object.y
+    self.points = object.points
 end

@@ -50,6 +50,8 @@ function love.keypressed(key, scancode, isrepeat)
     end
 end
 
+------------------------------------------------
+
 function AddMotion(value)
     if ManipulateMotion then
         MotionConstant = MotionConstant + value
@@ -66,4 +68,17 @@ function PlaySound(sound)
     if not Mute then
         sound:play()
     end
+end
+
+function Split(s, delimiter)
+    local result = {}
+    for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+        table.insert(result, match)
+    end
+    return result
+end
+
+function toboolean(string)
+    local stringtoboolean={ ["true"]=true, ["false"]=false }
+    return stringtoboolean[string]
 end

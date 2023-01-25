@@ -29,6 +29,17 @@ Ball = {
     bounce = false
 }
 
+--[[
+x
+y
+a
+xSpeed
+ySpeed
+bounce
+]]
+
+---------------------------------------------------------------
+
 local function DefaultSettings(o)
     o.x = ScreenWidth() / 2 - BallSize / 2
     o.y = ScreenHeight() / 2 - BallSize / 2
@@ -69,6 +80,27 @@ function Ball:move()
         PlaySound(BounceSound)
     end
     self.bounce = false
+end
+
+---------------------------------------------------------------
+
+function Ball:toString()
+    return tostring(self.x) .. " " ..
+        tostring(self.y) .. " " ..
+        tostring(self.a) .. " " ..
+        tostring(self.xSpeed) .. " " ..
+        tostring(self.ySpeed) .. " " ..
+        tostring(self.bounce)
+end
+
+function Ball:fromString(string)
+    local data = Split(string, " ")
+    self.x = tonumber(data[1])
+    self.y = tonumber(data[2])
+    self.a = tonumber(data[3])
+    self.xSpeed = tonumber(data[4])
+    self.ySpeed = tonumber(data[5])
+    self.bounce = toboolean(data[6])
 end
 
 function Ball:copy(object)
