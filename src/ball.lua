@@ -116,7 +116,7 @@ end
 
 function Ball:addCollisionSpeed(bat)
     if bat.moving then
-        self.ySpeed = self.ySpeed - bat:getCurrentSpeed() / 2
+        self.ySpeed = self.ySpeed + (bat:getCurrentSpeed() / 2)
         if self.xSpeed > 0 then
             self.xSpeed = self.xSpeed + 10
         else

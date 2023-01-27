@@ -3,6 +3,12 @@ require "ball"
 require "player"
 require "configuration"
 
+Socket = require "socket"
+
+Udp = Socket.udp()
+Udp:setsockname('*', 12345)
+Udp:settimeout(0)
+
 -------------------------------------------------------------
 
 GameState = {
@@ -107,20 +113,77 @@ function Game:update()
     end
 end
 
-function Game:updateLan()
-    if self.netRole == NetRole.server then
-
-    else
-
-    end
-end
-
 function Game:updateLocal()
     if self.state == GameState.playing then
         self:moveBats()
         self.ball:move()
     end
 end
+
+function Game:updateLan()
+    if self.netRole == NetRole.server then
+        self:server()
+    else
+        self:client()
+    end
+end
+
+function Game:server()
+    local data, msg_or_ip, port_or_nil = Udp:receivefrom()
+    print(data)
+    if data then
+        local meString = self:toString()
+        print("s: " .. meString)
+        -- self:fromString(data)
+        -- Udp:sendto(meString, msg_or_ip, port_or_nil)
+        self.bat1:move(Player1Down, Player1Up)
+    else
+        self.state = GameState.unknown
+    end
+end
+
+function Game:client()
+    local meString = self:toString()
+    print("c: " .. meString)
+
+    Udp:send(meString)
+    local data = Udp:receive()
+    if data then
+        -- self:fromString(data)
+    else
+        self.state = GameState.unknown
+    end
+end
+
+-------------------------------------------------------------
+
+function Game:toString()
+    if self.netRole == NetRole.server then
+        return self.bat1:toString() .. "|" .. self.ball:toString()
+    else
+        return self.bat2:toString()
+    end
+end
+
+function Game:fromString(string)
+    if self.netRole == NetRole.server then
+        self.bat2:fromString(string)
+    else
+        local data = Split(string, "|")
+        self.bat1:fromString(data[1])
+        self.ball:fromString(data[2])
+    end
+end
+
+function Game:copy(object)
+    self.bat1 = object.bat1
+    self.bat2 = object.bat2
+    self.player1 = object.player1
+    self.player2 = object.player2
+    self.ball = object.ball
+end
+
+-------------------------------------------------------------
 
 function Game:moveBats()
     self.bat1:move(Player1Down, Player1Up)

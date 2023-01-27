@@ -1,6 +1,5 @@
 require "game"
 require "configuration"
-Socket = require "socket"
 
 ------------------------------------------------
 

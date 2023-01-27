@@ -15,3 +15,17 @@ end
 function CollidesRect(r1, r2)
     return RectInRect(r1, r2) or RectInRect(r2, r1)
 end
+
+function SpeedUpBounce(ballSpeed, batSpeed)
+    if batSpeed < 0 and ballSpeed < 0 then
+        return -1
+    elseif batSpeed > 0 and ballSpeed < 0 then
+        return 1
+    elseif batSpeed > 0 and ballSpeed > 0 then
+        return -1
+    elseif batSpeed < 0 and ballSpeed > 0 then
+        return 1
+    else
+        return 0
+    end
+end
