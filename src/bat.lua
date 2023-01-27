@@ -7,7 +7,8 @@ Bat = {
     w = BatWidth,
     h = BatHeight,
     speed = BatSpeed,
-    speedAi = BatSpeedAi
+    speedAi = BatSpeedAi,
+    direction = 0
 }
 
 --[[
@@ -19,6 +20,7 @@ w
 h
 speed
 speedAi
+direction
 ]]
 
 --------------------------------------------------
@@ -30,6 +32,7 @@ local function DefaultSettings(o)
     o.speed = BatSpeed
     o.speedAi = BatSpeedAi
     o.moving = false
+    o.direction = 0
 end
 
 function Bat:new(game, xPos, manual)
@@ -103,11 +106,10 @@ function Bat:draw()
 end
 
 function Bat:move(down, up)
-    local dt = love.timer.getDelta()
     if self.manual then
-        self:moveManually(dt, down, up)
+        self:moveManually(down, up)
     else
-        self:moveAutomatically(dt)
+        self:moveAutomatically()
     end
 end
 
@@ -126,6 +128,7 @@ function Bat:copy(object)
     self.h = object.h
     self.speed = object.speed
     self.speedAi = object.speedAi
+    self.direction = object.direction
 end
 
 function Bat:toString()
@@ -136,7 +139,8 @@ function Bat:toString()
         tostring(self.w) .. " " ..
         tostring(self.h) .. " " ..
         tostring(self.speed) .. " " ..
-        tostring(self.speedAi)
+        tostring(self.speedAi) .. " " ..
+        tostring(self.direction)
 end
 
 function Bat:fromString(string)
@@ -149,6 +153,7 @@ function Bat:fromString(string)
     self.h = tonumber(data[6])
     self.speed = tonumber(data[7])
     self.speedAi = tonumber(data[8])
+    self.direction = tonumber(data[9])
 end
 
 --------------------------------------------------
@@ -160,7 +165,7 @@ function Bat:towardsMe()
     return (a1 or a2)
 end
 
-function Bat:moveAutomatically(dt)
+function Bat:moveAutomatically()
     local ball = self.game.ball
     local ball_y = ball.y + ball.a / 2
     local bat_mid = self.y + self.h / 2
@@ -169,29 +174,55 @@ function Bat:moveAutomatically(dt)
         return
     end
 
-    if bat_mid > ball_y then
-        self:up(dt, self.speedAi)
-    elseif bat_mid < ball_y then
-        self:down(dt, self.speedAi)
+    if bat_mid < ball_y then
+        self.direction = 1
+        self.moving = true
+    elseif bat_mid > ball_y then
+        self.direction = -1
+        self.moving = true
+    else
+        self.direction = 0
+        self.moving = false
+    end
+
+    self:moveInDirection()
+end
+
+--------------------------------------------------
+
+function Bat:moveManually(down, up)
+    if love.keyboard.isDown(down) then
+        self.direction = 1
+        self.moving = true
+    elseif love.keyboard.isDown(up) then
+        self.direction = -1
+        self.moving = true
+    else
+        self.direction = 0
+        self.moving = false
+    end
+
+    self:moveInDirection()
+end
+
+function Bat:moveInDirection()
+    local tmp_h = love.graphics.getPixelHeight() - self.h
+    local dt = love.timer.getDelta()
+
+    if self.y > 0 and self.direction == -1 then
+        self.y = self.y - self:getCurrentSpeed() * dt * MotionConstant
+    end
+
+    if self.y < tmp_h and self.direction == 1 then
+        self.y = self.y + self:getCurrentSpeed() * dt * MotionConstant
     end
 end
 
 --------------------------------------------------
 
-function Bat:moveManually(dt, down, up)
-    if love.keyboard.isDown(down) then
-        self:down(dt, self.speed)
-    elseif love.keyboard.isDown(up) then
-        self:up(dt, self.speed)
-    else
-        self.moving = false
-    end
-end
-
 function Bat:up(dt, sp)
     if self.y > 0 then
         self.y = self.y - sp * dt * MotionConstant
-        self.moving = true
     end
 end
 
@@ -199,6 +230,5 @@ function Bat:down(dt, sp)
     local tmp_h = love.graphics.getPixelHeight() - self.h
     if self.y < tmp_h then
         self.y = self.y + sp * dt * MotionConstant
-        self.moving = true
     end
 end
