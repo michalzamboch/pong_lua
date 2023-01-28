@@ -11,9 +11,9 @@ function love.load()
 
     BounceSound = love.audio.newSource(SoundPath .. "bounce.mp3", "static")
     BounceSound:setVolume(Volume)
-    PointUpSound = love.audio.newSource(SoundPath .. "assets/score.mp3", "static")
+    PointUpSound = love.audio.newSource(SoundPath .. "score.mp3", "static")
     PointUpSound:setVolume(Volume)
-    WinSound = love.audio.newSource(SoundPath .. "assets/win.mp3", "static")
+    WinSound = love.audio.newSource(SoundPath .. "win.mp3", "static")
     WinSound:setVolume(Volume)
 
     GameCore = Game:new()

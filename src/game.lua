@@ -54,8 +54,8 @@ function Game:new()
         self.netRole = CurrentNetRole
     end
 
-    object.bat1 = Bat:new(object, BatStartPosition, plMode1)
-    object.bat2 = Bat:new(object, ScreenWidth() - BatStartPosition * 2, plMode2)
+    object.bat1 = Bat:new(object, BatPosition.left, plMode1)
+    object.bat2 = Bat:new(object, BatPosition.right, plMode2)
     object.player1 = Player:new(ScorePosition)
     object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
@@ -76,6 +76,8 @@ function Game:draw()
 end
 
 function Game:drawGame()
+    self:drawBackground()
+    self:drawPlanets()
     self.bat1:draw()
     self.bat2:draw()
     self.ball:draw()
@@ -101,6 +103,14 @@ end
 
 function Game:drawError()
     love.graphics.print("Game is in unknown state.")
+end
+
+function Game:drawBackground()
+    --love.graphics.draw(background, i * background:getWidth(), j * background:getHeight())
+end
+
+function Game:drawPlanets()
+
 end
 
 -------------------------------------------------------------

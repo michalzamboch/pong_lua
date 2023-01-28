@@ -1,3 +1,8 @@
+BatPosition = {
+    left = 1,
+    right = 2,
+}
+
 Bat = {
     game = {},
     manual = true,
@@ -8,7 +13,8 @@ Bat = {
     h = BatHeight,
     speed = BatSpeed,
     speedAi = BatSpeedAi,
-    direction = 0
+    direction = 0,
+    image = nil
 }
 
 --[[
@@ -26,8 +32,8 @@ direction
 --------------------------------------------------
 
 local function DefaultSettings(o)
-    o.w = BatWidth
-    o.h = BatHeight
+    o.w = o.image:getWidth()
+    o.h = o.image:getHeight()
     o.y = BatPositionY
     o.speed = BatSpeed
     o.speedAi = BatSpeedAi
@@ -35,15 +41,23 @@ local function DefaultSettings(o)
     o.direction = 0
 end
 
-function Bat:new(game, xPos, manual)
+function Bat:new(game, position, manual)
     local object = {}
     setmetatable(object, self)
     self.__index = self
 
-    DefaultSettings(object)
-    object.x = xPos
     object.game = game
     object.manual = manual
+
+    if position == BatPosition.left then
+        object.image = love.graphics.newImage(ImagePath .. "1.png")
+        object.x = object.image:getWidth() / 2
+    else
+        object.image = love.graphics.newImage(ImagePath .. "2.png")
+        object.x = ScreenWidth() - object.image:getWidth() * 1.5
+    end
+    DefaultSettings(object)
+
     return object
 end
 
@@ -102,7 +116,7 @@ end
 --------------------------------------------------
 
 function Bat:draw()
-    love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
+    love.graphics.draw(self.image, self.x, self.y)
 end
 
 function Bat:move(down, up)
