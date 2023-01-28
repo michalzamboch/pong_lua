@@ -83,12 +83,12 @@ end
 
 function Game:drawGame()
     self:drawBackground()
+    self:drawLine()
     self.bat1:draw()
     self.bat2:draw()
     self.ball:draw()
     self.player1:drawPoints()
     self.player2:drawPoints()
-    self:drawLine()
 end
 
 function Game:drawResult()
