@@ -21,6 +21,10 @@ Rng = love.math.newRandomGenerator(os.time())
 Mute = false
 Volume = 0.5
 
+-- Paths
+ImagePath = "assets/images/"
+SoundPath = "assets/sounds/"
+
 -- Game
 ScorePosition = ScreenWidth() / 4
 BatStartPosition = 25

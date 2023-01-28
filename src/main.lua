@@ -9,11 +9,11 @@ function love.load()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(GeneralFont)
 
-    BounceSound = love.audio.newSource("assets/bounce.mp3", "static")
+    BounceSound = love.audio.newSource(SoundPath .. "bounce.mp3", "static")
     BounceSound:setVolume(Volume)
-    PointUpSound = love.audio.newSource("assets/score.mp3", "static")
+    PointUpSound = love.audio.newSource(SoundPath .. "assets/score.mp3", "static")
     PointUpSound:setVolume(Volume)
-    WinSound = love.audio.newSource("assets/win.mp3", "static")
+    WinSound = love.audio.newSource(SoundPath .. "assets/win.mp3", "static")
     WinSound:setVolume(Volume)
 
     GameCore = Game:new()
@@ -78,6 +78,6 @@ function Split(s, delimiter)
 end
 
 function toboolean(string)
-    local stringtoboolean={ ["true"]=true, ["false"]=false }
+    local stringtoboolean = { ["true"] = true, ["false"] = false }
     return stringtoboolean[string]
 end
