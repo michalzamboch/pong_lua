@@ -26,7 +26,8 @@ Ball = {
 
     xSpeed = RandomSpeedX(),
     ySpeed = RandomSpeedY(),
-    bounce = false
+    bounce = false,
+    image = nil
 }
 
 --[[
@@ -41,9 +42,9 @@ bounce
 ---------------------------------------------------------------
 
 local function DefaultSettings(o)
-    o.x = ScreenWidth() / 2 - BallSize / 2
-    o.y = ScreenHeight() / 2 - BallSize / 2
-    o.a = BallSize
+    o.a = o.image:getWidth()
+    o.x = ScreenWidth() / 2 - o.a / 2
+    o.y = ScreenHeight() / 2 - o.a / 2
     o.xSpeed = RandomSpeedX()
     o.ySpeed = RandomSpeedY()
 end
@@ -53,8 +54,10 @@ function Ball:new(game)
     setmetatable(object, self)
     self.__index = self
 
-    DefaultSettings(object)
     object.game = game
+    object.image = love.graphics.newImage(ImagePath .. "ball.png")
+
+    DefaultSettings(object)
     return object
 end
 
@@ -65,7 +68,7 @@ end
 ---------------------------------------------------------------
 
 function Ball:draw()
-    love.graphics.rectangle("fill", self.x, self.y, self.a, self.a)
+    love.graphics.draw(self.image, self.x, self.y)
 end
 
 function Ball:move()
