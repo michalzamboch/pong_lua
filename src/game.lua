@@ -34,7 +34,10 @@ Game = {
     state = GameState.playing,
     maxPoints = MaxPoints,
     gameNetSettings = GameNetSettings.single,
-    netRole = NetRole.unknown
+    netRole = NetRole.unknown,
+    universe = nil,
+    planets = nil,
+    planetsRotation = 0
 }
 
 -------------------------------------------------------------
@@ -60,6 +63,9 @@ function Game:new()
     object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
 
+    object.universe = love.graphics.newImage(ImagePath .. "universe.png")
+    object.planets = love.graphics.newImage(ImagePath .. "planets.png")
+
     return object
 end
 
@@ -77,7 +83,6 @@ end
 
 function Game:drawGame()
     self:drawBackground()
-    self:drawPlanets()
     self.bat1:draw()
     self.bat2:draw()
     self.ball:draw()
@@ -106,16 +111,17 @@ function Game:drawError()
 end
 
 function Game:drawBackground()
-    --love.graphics.draw(background, i * background:getWidth(), j * background:getHeight())
-end
-
-function Game:drawPlanets()
-
+    love.graphics.draw(self.universe, 0, 0)
+    local halfWidth, halfHeight = self.planets:getWidth() / 2, self.planets:getHeight() / 2
+    love.graphics.draw(self.planets, halfWidth, halfHeight, self.planetsRotation, 1, 1, halfWidth, halfHeight)
 end
 
 -------------------------------------------------------------
 
 function Game:update()
+    local dt = love.timer.getDelta()
+    self.planetsRotation = self.planetsRotation + 0.05 * dt
+
     if self.gameNetSettings == GameNetSettings.multiLan then
         self:updateLan()
     else
