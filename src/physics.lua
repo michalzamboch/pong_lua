@@ -17,14 +17,8 @@ function CollidesRect(r1, r2)
 end
 
 function SpeedUpBounce(ballSpeed, batDirection)
-    if batDirection == -1 and ballSpeed < 0 then
-        return -1
-    elseif batDirection == 1 and ballSpeed < 0 then
-        return 1
-    elseif batDirection == 1 and ballSpeed > 0 then
-        return 1
-    elseif batDirection == -1 and ballSpeed > 0 then
-        return -1
+    if ballSpeed ~= 0  then
+        return batDirection
     else
         return 0
     end
