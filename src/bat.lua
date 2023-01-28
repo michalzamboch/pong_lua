@@ -5,6 +5,7 @@ BatPosition = {
 
 Bat = {
     game = {},
+    stop = false,
     manual = true,
     moving = false,
     x = 0,
@@ -18,6 +19,7 @@ Bat = {
 }
 
 --[[
+stop
 manual
 moving
 x
@@ -27,6 +29,7 @@ h
 speed
 speedAi
 direction
+image
 ]]
 
 --------------------------------------------------
@@ -38,6 +41,7 @@ local function DefaultSettings(o)
     o.speed = BatSpeed
     o.speedAi = BatSpeedAi
     o.moving = false
+    o.stop = false
     o.direction = 0
 end
 
@@ -120,6 +124,10 @@ function Bat:draw()
 end
 
 function Bat:move(down, up)
+    if self.stop then
+        return
+    end
+
     if self.manual then
         self:moveManually(down, up)
     else
@@ -143,6 +151,7 @@ function Bat:copy(object)
     self.speed = object.speed
     self.speedAi = object.speedAi
     self.direction = object.direction
+    self.stop = object.stop
 end
 
 function Bat:toString()
@@ -154,7 +163,8 @@ function Bat:toString()
         tostring(self.h) .. " " ..
         tostring(self.speed) .. " " ..
         tostring(self.speedAi) .. " " ..
-        tostring(self.direction)
+        tostring(self.direction) .. " " ..
+        tostring(self.stop)
 end
 
 function Bat:fromString(string)
@@ -168,6 +178,7 @@ function Bat:fromString(string)
     self.speed = tonumber(data[7])
     self.speedAi = tonumber(data[8])
     self.direction = tonumber(data[9])
+    self.stop = toboolean(data[10])
 end
 
 --------------------------------------------------

@@ -56,7 +56,13 @@ function Bullet:move()
     local tmp_x = self.x
     self.x = self.x + self.speed * dt * MotionConstant
 
-    --self.x = tmp_x
+    if CircleInRect(self, self.game.bat1) then
+
+    end
+
+    if CircleInRect(self, self.game.bat2) then
+
+    end
 end
 
 -------------------------------------------------------
