@@ -1,8 +1,8 @@
 # Pong
-### Love framework
+## Love framework
 https://love2d.org/
 
-### Key bindings
+## Key bindings
 - escape - exit games
 - f1 - motion speed up
 - f2 - motion speed down
