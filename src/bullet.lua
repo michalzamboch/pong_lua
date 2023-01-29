@@ -2,6 +2,7 @@ require "configuration"
 
 Bullet = {
     game = {},
+    bat = {},
     fired = false,
     x = 0,
     y = 0,
@@ -20,23 +21,25 @@ speed
 -------------------------------------------------------
 
 local function DefaultSettings(o)
-    o.x = 0
-    o.y = 0
     o.a = BulletRadius
     o.speed = BulletSpeed
     o.fired = false
+    if o.bat.position == BatPosition.left then
+        o.x = o.bat.x + o.bat.w
+    else
+        o.x = o.bat.x - o.a
+    end
+    o.y = o.bat.y + o.bat.h / 2
 end
 
-function Bullet:new(game, x, y)
+function Bullet:new(game, bat)
     local object = {}
     setmetatable(object, self)
     self.__index = self
 
+    object.game = game
+    object.bat = bat
     DefaultSettings(object)
-
-    self.game = game
-    self.x = x
-    self.y = y
 
     return object
 end
@@ -44,7 +47,7 @@ end
 -------------------------------------------------------
 
 function Bullet:reset()
-    DefaultSettings(self)
+    self = nil
 end
 
 function Bullet:draw()

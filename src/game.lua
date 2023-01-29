@@ -89,18 +89,20 @@ function Game:drawGame()
     self.ball:draw()
     self.player1:drawPoints()
     self.player2:drawPoints()
+    self:drawFPS()
 end
 
 function Game:drawResult()
+    self:drawBackground()
     local message = "Nobody won yet."
 
     if self.player1.points >= self.maxPoints then
-        message = "Player num. 1 (on the right) won."
+        message = "Player on the right won."
     elseif self.player2.points >= self.maxPoints then
-        message = "Player num. 2 (on the left) won."
+        message = "Player on the left won."
     end
 
-    local tmpX = 0
+    local tmpX = 10
     local tmpY = ScreenHeight() / 2 - MyFontSize
     love.graphics.print(message, tmpX, tmpY)
     love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize)
@@ -110,10 +112,21 @@ function Game:drawError()
     love.graphics.print("Game is in unknown state.")
 end
 
+function Game:drawLine()
+    local tmp_m = ScreenWidth() / 2
+    love.graphics.rectangle("fill", tmp_m - 1, 0, 2, ScreenHeight())
+end
+
 function Game:drawBackground()
     love.graphics.draw(self.universe, 0, 0)
     local halfWidth, halfHeight = self.planets:getWidth() / 2, self.planets:getHeight() / 2
     love.graphics.draw(self.planets, halfWidth, halfHeight, self.planetsRotation, 1, 1, halfWidth, halfHeight)
+end
+
+function Game:drawFPS()
+    if ShowFPS then
+        love.graphics.print(tostring(love.timer.getFPS()), 1, 1, nil)
+    end
 end
 
 -------------------------------------------------------------
@@ -225,11 +238,6 @@ function Game:pauseGame()
     elseif self.state == GameState.playing then
         self.state = GameState.paused
     end
-end
-
-function Game:drawLine()
-    local tmp_m = ScreenWidth() / 2
-    love.graphics.rectangle("fill", tmp_m - 1, 0, 2, ScreenHeight())
 end
 
 function Game:switchModeBat1()

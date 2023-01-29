@@ -1,7 +1,4 @@
-BatPosition = {
-    left = 1,
-    right = 2,
-}
+require "configuration"
 
 Bat = {
     game = {},
@@ -15,6 +12,7 @@ Bat = {
     speed = BatSpeed,
     speedAi = BatSpeedAi,
     direction = 0,
+    position = BatPosition.unknown,
     image = nil
 }
 
@@ -52,8 +50,9 @@ function Bat:new(game, position, manual)
 
     object.game = game
     object.manual = manual
+    object.position = position
 
-    if position == BatPosition.left then
+    if object.position == BatPosition.left then
         object.image = love.graphics.newImage(ImagePath .. "1.png")
         object.x = object.image:getWidth() / 2
     else

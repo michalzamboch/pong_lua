@@ -31,6 +31,7 @@ BatStartPosition = 25
 MaxPoints = 10
 PlayerMode1 = true
 PlayerMode2 = false
+ShowFPS = false
 
 -- Server
 
@@ -41,6 +42,12 @@ BatPositionY = (ScreenHeight() / 2) - BatHeight / 2
 BatSpeed = 200
 BatSpeedAi = 100
 BatWidth = 20
+
+BatPosition = {
+    unknown = 0,
+    left = 1,
+    right = 2,
+}
 
 -- Player
 PointsPositionY = 25
