@@ -1,4 +1,8 @@
 # Pong
+
+## Game screenshot
+![Alt text](img/game.png?raw=true "Pong")
+
 ## Love framework
 https://love2d.org/
 
