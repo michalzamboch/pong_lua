@@ -1,7 +1,7 @@
 # Developer scripts
 
 ## Export
-Creates portable executable file with all dll dependencies.
+Creates portable executable file with all .dll dependencies.
 
 ## Run
 Starts game using Power Shell.
