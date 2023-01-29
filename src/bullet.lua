@@ -51,10 +51,17 @@ function Bullet:reset()
 end
 
 function Bullet:draw()
+    if not self.fired then
+        return
+    end
     love.graphics.circle("fill", self.x, self.y, self.a)
 end
 
 function Bullet:move()
+    if not self.fired then
+        return
+    end
+
     local dt = love.timer.getDelta()
     local tmp_x = self.x
     self.x = self.x + self.speed * dt * MotionConstant

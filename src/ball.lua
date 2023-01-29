@@ -125,6 +125,7 @@ function Ball:addCollisionSpeed(bat)
         else
             self.xSpeed = self.xSpeed - 10
         end
+        print(self.xSpeed, self.ySpeed)
     end
 end
 

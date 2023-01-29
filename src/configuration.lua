@@ -44,9 +44,9 @@ BatSpeedAi = 100
 BatWidth = 20
 
 BatPosition = {
-    unknown = 0,
-    left = 1,
-    right = 2,
+    unknown = "unknown",
+    left = "left",
+    right = "right",
 }
 
 -- Player
@@ -60,8 +60,8 @@ Player2Down = "down"
 BallSize = 20
 BallPositionX = ScreenWidth() / 2 - BallSize / 2
 BallPositionY = ScreenHeight() / 2 - BallSize / 2
-BallMinSpeedX = 225
-BallMaxSpeedX = 275
+BallMinSpeedX = 250
+BallMaxSpeedX = 300
 BallMinSpeedY = 125
 BallMaxSpeedY = 150
 

@@ -12,22 +12,22 @@ Udp:settimeout(0)
 -------------------------------------------------------------
 
 GameState = {
-    unknown = 0,
-    playing = 1,
-    paused = 2,
-    ended = 3,
+    unknown = "unknown",
+    playing = "playing",
+    paused = "paused",
+    ended = "ended",
 }
 
 GameNetSettings = {
-    single = 0,
-    multiLocal = 1,
-    multiLan = 2
+    single = "single",
+    multiLocal = "multiLocal",
+    multiLan = "multiLan"
 }
 
 NetRole = {
-    unknown = 0,
-    client = 1,
-    server = 2
+    unknown = "unknown",
+    client = "client",
+    server = "server"
 }
 
 Game = {
@@ -46,19 +46,18 @@ function Game:new()
     local object = {}
     setmetatable(object, self)
     self.__index = self
-    local plMode1, plMode2 = PlayerMode1, PlayerMode2
 
     if self.gameNetSettings == GameNetSettings.single then
-        plMode1, plMode2 = true, false
+        PlayerMode1, PlayerMode2 = true, false
     elseif self.gameNetSettings == GameNetSettings.multiLocal then
-        plMode1, plMode2 = true, true
+        PlayerMode1, PlayerMode2 = true, true
     else
-        plMode1, plMode2 = true, true
+        PlayerMode1, PlayerMode2 = true, true
         self.netRole = CurrentNetRole
     end
 
-    object.bat1 = Bat:new(object, BatPosition.left, plMode1)
-    object.bat2 = Bat:new(object, BatPosition.right, plMode2)
+    object.bat1 = Bat:new(object, BatPosition.left, PlayerMode1)
+    object.bat2 = Bat:new(object, BatPosition.right, PlayerMode2)
     object.player1 = Player:new(ScorePosition)
     object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
@@ -94,18 +93,19 @@ end
 
 function Game:drawResult()
     self:drawBackground()
-    local message = "Nobody won yet."
+    local message = nil
 
     if self.player1.points >= self.maxPoints then
-        message = "Player on the right won."
-    elseif self.player2.points >= self.maxPoints then
         message = "Player on the left won."
+    elseif self.player2.points >= self.maxPoints then
+        message = "Player on the right won."
     end
 
     local tmpX = 10
     local tmpY = ScreenHeight() / 2 - MyFontSize
-    love.graphics.print(message, tmpX, tmpY)
-    love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize)
+    local scale = 0.7
+    love.graphics.print(message, tmpX, tmpY, nil, scale, scale)
+    love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize, nil, scale, scale)
 end
 
 function Game:drawError()
@@ -119,13 +119,14 @@ end
 
 function Game:drawBackground()
     love.graphics.draw(self.universe, 0, 0)
-    local halfWidth, halfHeight = self.planets:getWidth() / 2, self.planets:getHeight() / 2
+    local halfWidth = self.planets:getWidth() / 2
+    local halfHeight = self.planets:getHeight() / 2
     love.graphics.draw(self.planets, halfWidth, halfHeight, self.planetsRotation, 1, 1, halfWidth, halfHeight)
 end
 
 function Game:drawFPS()
     if ShowFPS then
-        love.graphics.print(tostring(love.timer.getFPS()), 1, 1, nil)
+        love.graphics.print(tostring(love.timer.getFPS()), 1, 1, nil, 0.4, 0.4)
     end
 end
 
@@ -253,4 +254,8 @@ function Game:checkScore()
         self.state = GameState.ended
         PlaySound(WinSound)
     end
+end
+
+function Game:showFPS()
+    ShowFPS = not ShowFPS
 end
