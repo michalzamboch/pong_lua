@@ -1,6 +1,6 @@
 # Pong
 
-## Game screenshot
+## Screenshot
 ![Alt text](img/game.png?raw=true "Pong")
 
 ## Love framework
