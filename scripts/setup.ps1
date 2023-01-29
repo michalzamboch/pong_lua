@@ -1,3 +1,5 @@
+$lovePackage = "Love2d.Love2d"
+
 if (-Not (Get-Command lua)) {
     
     if (-Not (Get-Command scoop)) {
@@ -12,7 +14,12 @@ if (-Not (Get-Command lua)) {
 }
 
 if (Get-Command winget) {
-    winget install --id Love2d.Love2d
+    $query = winget list | findstr $lovePackage
+
+    if ([string]::IsNullOrEmpty($query)) {
+        Write-Host "Installing Love2D framework." -ForegroundColor Cyan
+        winget install --id Love2d.Love2d
+    }
 }
 else {
     Write-Host "Need to have installed Winget package manager." -ForegroundColor Red
