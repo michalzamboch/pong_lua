@@ -1,10 +1,14 @@
 # Pong
 
-## Screenshot
-![Alt text](img/game.png?raw=true "Pong")
+## Supported modes
+- single - player vs computer
+- multiplayer - one keybord - player vs player
 
 ## Love framework
 https://love2d.org/
+
+## Screenshot
+![Alt text](img/game.png?raw=true "Pong")
 
 ## Key bindings
 - escape - exit games
