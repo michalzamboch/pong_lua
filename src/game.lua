@@ -3,9 +3,9 @@ require "ball"
 require "player"
 require "configuration"
 
-Socket = require "socket"
+local Socket = require "socket"
 
-Udp = Socket.udp()
+local Udp = Socket.udp()
 Udp:setsockname('*', 12345)
 Udp:settimeout(0)
 
