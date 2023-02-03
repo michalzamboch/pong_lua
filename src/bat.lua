@@ -119,7 +119,11 @@ end
 --------------------------------------------------
 
 function Bat:draw()
-    love.graphics.draw(self.image, self.x, self.y)
+    love.graphics.draw(self.image, self.x, self.y, nil, ScaleX, ScaleY)
+end
+
+function Bat:scale()
+    
 end
 
 function Bat:move(down, up)

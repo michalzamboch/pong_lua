@@ -57,6 +57,10 @@ function Bullet:draw()
     love.graphics.circle("fill", self.x, self.y, self.a)
 end
 
+function Bullet:scale()
+
+end
+
 function Bullet:move()
     if not self.fired then
         return

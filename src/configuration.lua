@@ -21,6 +21,9 @@ Rng = love.math.newRandomGenerator(os.time())
 Mute = false
 Volume = 0.5
 
+ScaleX = 1
+ScaleY = 1
+
 -- Paths
 ImagePath = "assets/images/"
 SoundPath = "assets/sounds/"

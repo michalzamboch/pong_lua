@@ -68,7 +68,7 @@ end
 ---------------------------------------------------------------
 
 function Ball:draw()
-    love.graphics.draw(self.image, self.x, self.y)
+    love.graphics.draw(self.image, self.x, self.y, nil, ScaleX, ScaleY)
 end
 
 function Ball:move()
@@ -83,6 +83,10 @@ function Ball:move()
         PlaySound(BounceSound)
         self.bounce = false
     end
+end
+
+function Ball:scale()
+    
 end
 
 ---------------------------------------------------------------

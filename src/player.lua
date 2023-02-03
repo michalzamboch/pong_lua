@@ -24,7 +24,11 @@ function Player:new(xPos)
 end
 
 function Player:drawPoints()
-    love.graphics.print(tostring(self.points), self.x, self.y)
+    love.graphics.print(tostring(self.points), self.x, self.y, nil, ScaleX, ScaleY)
+end
+
+function Player:scale()
+    
 end
 
 function Player:increasePoints()

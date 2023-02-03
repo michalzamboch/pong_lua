@@ -70,6 +70,10 @@ end
 
 -------------------------------------------------------------
 
+function Game:scale()
+    
+end
+
 function Game:draw()
     if self.state == GameState.playing or self.state == GameState.paused then
         self:drawGame()
@@ -104,29 +108,31 @@ function Game:drawResult()
     local tmpX = 10
     local tmpY = ScreenHeight() / 2 - MyFontSize
     local scale = 0.7
-    love.graphics.print(message, tmpX, tmpY, nil, scale, scale)
-    love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize, nil, scale, scale)
+    love.graphics.print(message, tmpX, tmpY, nil, scale * ScaleX, scale * ScaleY)
+    love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize, nil, scale * ScaleX, scale * ScaleY)
 end
 
 function Game:drawError()
-    love.graphics.print("Game is in unknown state.")
+    local tmpX = 10
+    local tmpY = ScreenHeight() / 2 - MyFontSize
+    love.graphics.print("Game is in unknown state.", tmpX, tmpY, nil, ScaleX, ScaleY)
 end
 
 function Game:drawLine()
     local tmp_m = ScreenWidth() / 2
-    love.graphics.rectangle("fill", tmp_m - 1, 0, 2, ScreenHeight())
+    love.graphics.rectangle("fill", tmp_m - 1, 0, 2 * ScaleX, ScreenHeight())
 end
 
 function Game:drawBackground()
     love.graphics.draw(self.universe, 0, 0)
     local halfWidth = self.planets:getWidth() / 2
     local halfHeight = self.planets:getHeight() / 2
-    love.graphics.draw(self.planets, halfWidth, halfHeight, self.planetsRotation, 1, 1, halfWidth, halfHeight)
+    love.graphics.draw(self.planets, halfWidth, halfHeight, self.planetsRotation, ScaleX, ScaleY, halfWidth, halfHeight)
 end
 
 function Game:drawFPS()
     if ShowFPS then
-        love.graphics.print(tostring(love.timer.getFPS()), 1, 1, nil, 0.4, 0.4)
+        love.graphics.print(tostring(love.timer.getFPS()), 1, 1, nil, 0.4 * ScaleX, 0.4 * ScaleY)
     end
 end
 
