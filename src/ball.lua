@@ -81,8 +81,8 @@ function Ball:move()
 
     if self.bounce then
         PlaySound(BounceSound)
+        self.bounce = false
     end
-    self.bounce = false
 end
 
 ---------------------------------------------------------------
