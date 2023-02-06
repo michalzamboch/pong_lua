@@ -121,14 +121,30 @@ end
 
 ---------------------------------------------------------------
 
+function Ball:AddedXSpeed(sp)
+    if self.xSpeed > 0 then
+        return self.xSpeed + sp
+    else
+        return self.xSpeed - sp
+    end
+end
+
+function Ball:AddXSpeed(sp)
+    self.xSpeed = self:AddedXSpeed(sp)
+end
+
+function Ball:AddedYSpeed(bat)
+    return self.ySpeed + (bat:getCurrentSpeed() / 2 * SpeedUpBounce(self.ySpeed, bat.direction))
+end
+
+function Ball:AddYSpeed(bat)
+    self.ySpeed = self:AddedYSpeed(bat)
+end
+
 function Ball:addCollisionSpeed(bat)
     if bat.moving then
-        self.ySpeed = self.ySpeed + (bat:getCurrentSpeed() / 2 * SpeedUpBounce(self.ySpeed, bat.direction))
-        if self.xSpeed > 0 then
-            self.xSpeed = self.xSpeed + 10
-        else
-            self.xSpeed = self.xSpeed - 10
-        end
+        self:AddYSpeed(bat)
+        self:AddXSpeed(10)
         print(self.xSpeed, self.ySpeed)
     end
 end

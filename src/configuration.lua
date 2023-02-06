@@ -56,8 +56,10 @@ BatPosition = {
 PointsPositionY = 25
 Player1Up = "w"
 Player1Down = "s"
+Player1Push = "d"
 Player2Up = "up"
 Player2Down = "down"
+Player2Push = "right"
 
 -- Ball
 BallSize = 20

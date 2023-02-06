@@ -222,8 +222,8 @@ end
 -------------------------------------------------------------
 
 function Game:moveBats()
-    self.bat1:move(Player1Down, Player1Up)
-    self.bat2:move(Player2Down, Player2Up)
+    self.bat1:move(Player1Down, Player1Up, Player1Push)
+    self.bat2:move(Player2Down, Player2Up, Player2Push)
 end
 
 function Game:reset()

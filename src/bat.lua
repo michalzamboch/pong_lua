@@ -13,6 +13,8 @@ Bat = {
     speedAi = BatSpeedAi,
     direction = 0,
     position = BatPosition.unknown,
+    timerCurrent = 0,
+    timerDelay = 5,
     image = nil
 }
 
@@ -27,6 +29,9 @@ h
 speed
 speedAi
 direction
+position
+timerCurrent
+timerDelay
 image
 ]]
 
@@ -41,6 +46,7 @@ local function DefaultSettings(o)
     o.moving = false
     o.stop = false
     o.direction = 0
+    o.timerCurrent = 0
 end
 
 function Bat:new(game, position, manual)
@@ -76,6 +82,10 @@ end
 
 function Bat:getX2()
     return self.x + self.w
+end
+
+function Bat:middleX()
+    return self.x + self.w / 2
 end
 
 function Bat:getY()
@@ -123,10 +133,10 @@ function Bat:draw()
 end
 
 function Bat:scale()
-    
+
 end
 
-function Bat:move(down, up)
+function Bat:move(down, up, push)
     if self.stop then
         return
     end
@@ -182,6 +192,46 @@ function Bat:fromString(string)
     self.speedAi = tonumber(data[8])
     self.direction = tonumber(data[9])
     self.stop = toboolean(data[10])
+end
+
+--------------------------------------------------
+
+function Bat:ballIsClose(distance)
+    local close = math.abs(self:middleX() - self.game.ball.x)
+    return close < distance
+end
+
+function Bat:canPush()
+    return self.timerCurrent > self.timerDelay
+end
+
+function Bat:possibleToPush(pushBtn)
+    return self:canPush() and love.keyboard.isDown(pushBtn) and self:ballIsClose(50)
+end
+
+function Bat:push(pushBtn)
+    if self:possibleToPush(pushBtn) then
+        self.timerCurrent = nil
+        self.game.ball:AddXSpeed(200)
+        print("push")
+    else
+        self:timePush()
+    end
+end
+
+function Bat:timePush()
+    self.timerCurrent = self.timerCurrent + love.timer.getDelta()
+end
+
+function Bat:drawPushState()
+    if self:canPush() then
+        love.graphics.setColor(0, 255, 0)
+    else
+        love.graphics.setColor(255, 0, 0)
+    end
+
+    love.graphics.circle("fill", 10, 10, 5)
+    love.graphics.setColor(255, 255, 255)
 end
 
 --------------------------------------------------
