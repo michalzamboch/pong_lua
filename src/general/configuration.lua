@@ -37,11 +37,11 @@ PlayerMode2 = false
 ShowFPS = false
 
 -- Bat
-BatHeight = 120
+BatHeight = love.graphics.newImage(ImagePath .. "1.png"):getHeight()
 BatPositionY = (ScreenHeight() / 2) - BatHeight / 2
 BatSpeed = 200
 BatSpeedAi = 100
-BatWidth = 20
+BatWidth = love.graphics.newImage(ImagePath .. "1.png"):getWidth()
 
 -- Player
 PointsPositionY = 25
