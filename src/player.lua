@@ -6,12 +6,6 @@ Player = {
     y = PointsPositionY,
 }
 
---[[
-points
-x
-y
-]]
-
 ---------------------------------------------------------------
 
 function Player:new(xPos)
@@ -28,7 +22,7 @@ function Player:drawPoints()
 end
 
 function Player:scale()
-    
+
 end
 
 function Player:increasePoints()

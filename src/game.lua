@@ -3,12 +3,6 @@ require "ball"
 require "player"
 require "configuration"
 
-local Socket = require "socket"
-
-local Udp = Socket.udp()
-Udp:setsockname('*', 12345)
-Udp:settimeout(0)
-
 -------------------------------------------------------------
 
 GameState = {
@@ -71,7 +65,7 @@ end
 -------------------------------------------------------------
 
 function Game:scale()
-    
+
 end
 
 function Game:draw()
@@ -142,52 +136,13 @@ function Game:update()
     local dt = love.timer.getDelta()
     self.planetsRotation = self.planetsRotation + 0.05 * dt
 
-    if self.gameNetSettings == GameNetSettings.multiLan then
-        self:updateLan()
-    else
-        self:updateLocal()
-    end
+    self:updateLocal()
 end
 
 function Game:updateLocal()
     if self.state == GameState.playing then
         self:moveBats()
         self.ball:move()
-    end
-end
-
-function Game:updateLan()
-    if self.netRole == NetRole.server then
-        self:server()
-    else
-        self:client()
-    end
-end
-
-function Game:server()
-    local data, msg_or_ip, port_or_nil = Udp:receivefrom()
-    print(data)
-    if data then
-        local meString = self:toString()
-        print("s: " .. meString)
-        -- self:fromString(data)
-        -- Udp:sendto(meString, msg_or_ip, port_or_nil)
-        self.bat1:move(Player1Down, Player1Up)
-    else
-        self.state = GameState.unknown
-    end
-end
-
-function Game:client()
-    local meString = self:toString()
-    print("c: " .. meString)
-
-    Udp:send(meString)
-    local data = Udp:receive()
-    if data then
-        -- self:fromString(data)
-    else
-        self.state = GameState.unknown
     end
 end
 

@@ -23,21 +23,11 @@ Ball = {
     x = BallPositionX,
     y = BallPositionY,
     a = BallSize,
-
     xSpeed = RandomSpeedX(),
     ySpeed = RandomSpeedY(),
     bounce = false,
     image = nil
 }
-
---[[
-x
-y
-a
-xSpeed
-ySpeed
-bounce
-]]
 
 ---------------------------------------------------------------
 
@@ -86,7 +76,7 @@ function Ball:move()
 end
 
 function Ball:scale()
-    
+
 end
 
 ---------------------------------------------------------------
@@ -238,9 +228,9 @@ function Ball:setSpeed(xs, ys)
 end
 
 function Ball:invertXSpeed()
-    self.xSpeed = self.xSpeed * (-1)
+    self.xSpeed = self.xSpeed * ( -1)
 end
 
 function Ball:invertYSpeed()
-    self.ySpeed = self.ySpeed * (-1)
+    self.ySpeed = self.ySpeed * ( -1)
 end

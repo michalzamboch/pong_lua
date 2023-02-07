@@ -10,14 +10,6 @@ Bullet = {
     speed = BulletSpeed
 }
 
---[[
-fired
-x
-y
-a
-speed
-]]
-
 -------------------------------------------------------
 
 local function DefaultSettings(o)

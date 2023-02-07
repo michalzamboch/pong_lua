@@ -36,9 +36,6 @@ PlayerMode1 = true
 PlayerMode2 = false
 ShowFPS = false
 
--- Server
-
-
 -- Bat
 BatHeight = 120
 BatPositionY = (ScreenHeight() / 2) - BatHeight / 2

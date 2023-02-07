@@ -18,23 +18,6 @@ Bat = {
     image = nil
 }
 
---[[
-stop
-manual
-moving
-x
-y
-w
-h
-speed
-speedAi
-direction
-position
-timerCurrent
-timerDelay
-image
-]]
-
 --------------------------------------------------
 
 local function DefaultSettings(o)

@@ -30,11 +30,11 @@ function love.keypressed(key, scancode, isrepeat)
     if key == "escape" then
         os.exit()
     elseif key == "f1" then
-        AddMotion(-0.1)
+        AddMotion( -0.1)
     elseif key == "f2" then
         AddMotion(0.1)
     elseif key == "f3" then
-        AddSize(-0.1)
+        AddSize( -0.1)
     elseif key == "f4" then
         AddSize(0.1)
     elseif key == "f5" then
@@ -81,6 +81,6 @@ function Split(s, delimiter)
 end
 
 function toboolean(string)
-    local stringtoboolean = { ["true"] = true, ["false"] = false }
+    local stringtoboolean = { ["true"] = true,["false"] = false }
     return stringtoboolean[string]
 end
