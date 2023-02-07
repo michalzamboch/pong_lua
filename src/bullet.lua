@@ -1,4 +1,4 @@
-require "configuration"
+require "general.configuration"
 
 Bullet = {
     game = {},

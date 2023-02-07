@@ -1,5 +1,5 @@
-require "physics"
-require "configuration"
+require "general.physics"
+require "general.configuration"
 
 function RandomSpeed(minSpeed, maxSpeed)
     local speed = Rng:random(minSpeed, maxSpeed)

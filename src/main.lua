@@ -1,5 +1,5 @@
 require "game"
-require "configuration"
+require "general.configuration"
 
 ------------------------------------------------
 

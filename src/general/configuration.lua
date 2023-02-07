@@ -43,12 +43,6 @@ BatSpeed = 200
 BatSpeedAi = 100
 BatWidth = 20
 
-BatPosition = {
-    unknown = "unknown",
-    left = "left",
-    right = "right",
-}
-
 -- Player
 PointsPositionY = 25
 Player1Up = "w"

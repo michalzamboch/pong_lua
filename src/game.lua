@@ -1,28 +1,10 @@
 require "bat"
 require "ball"
 require "player"
-require "configuration"
+require "general.configuration"
+require "general.enums"
 
 -------------------------------------------------------------
-
-GameState = {
-    unknown = "unknown",
-    playing = "playing",
-    paused = "paused",
-    ended = "ended",
-}
-
-GameNetSettings = {
-    single = "single",
-    multiLocal = "multiLocal",
-    multiLan = "multiLan"
-}
-
-NetRole = {
-    unknown = "unknown",
-    client = "client",
-    server = "server"
-}
 
 Game = {
     state = GameState.playing,

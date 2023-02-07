@@ -1,4 +1,5 @@
-require "configuration"
+require "general.configuration"
+require "general.enums"
 
 Bat = {
     game = {},
