@@ -69,6 +69,7 @@ function Game:drawGame()
     self.player1:drawPoints()
     self.player2:drawPoints()
     self:drawFPS()
+    
 end
 
 function Game:drawResult()
