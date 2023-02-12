@@ -53,7 +53,7 @@ Player2Down = "down"
 Player2Push = "right"
 
 -- Ball
-BallSize = 20
+BallSize = love.graphics.newImage(ImagePath .. "ball.png"):getWidth()
 BallPositionX = ScreenWidth() / 2 - BallSize / 2
 BallPositionY = ScreenHeight() / 2 - BallSize / 2
 BallMinSpeedX = 250

@@ -142,18 +142,18 @@ end
 function Ball:BatCollision(tmp_x)
     self.x = tmp_x
 
-    if CollidesRect(self, self.game.bat1) then
+    if CollidesRect(self, self.game.batLeft) then
         self:invertXSpeed()
-        self:addCollisionSpeed(self.game.bat1)
-        self.x = self.game.bat1:getX2()
+        self:addCollisionSpeed(self.game.batLeft)
+        self.x = self.game.batLeft:getX2()
         self.bounce = true
         return
     end
 
-    if CollidesRect(self, self.game.bat2) then
+    if CollidesRect(self, self.game.batRight) then
         self:invertXSpeed()
-        self:addCollisionSpeed(self.game.bat2)
-        self.x = self.game.bat2:getX() - self.a
+        self:addCollisionSpeed(self.game.batRight)
+        self.x = self.game.batRight:getX() - self.a
         self.bounce = true
     end
 end

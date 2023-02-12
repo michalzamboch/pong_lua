@@ -32,8 +32,8 @@ function Game:new()
         self.netRole = CurrentNetRole
     end
 
-    object.bat1 = Bat:new(object, BatPosition.left, PlayerMode1)
-    object.bat2 = Bat:new(object, BatPosition.right, PlayerMode2)
+    object.batLeft = Bat:new(object, BatPosition.left, PlayerMode1)
+    object.batRight = Bat:new(object, BatPosition.right, PlayerMode2)
     object.player1 = Player:new(ScorePosition)
     object.player2 = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
@@ -63,8 +63,8 @@ end
 function Game:drawGame()
     self:drawBackground()
     self:drawLine()
-    self.bat1:draw()
-    self.bat2:draw()
+    self.batLeft:draw()
+    self.batRight:draw()
     self.ball:draw()
     self.player1:drawPoints()
     self.player2:drawPoints()
@@ -132,25 +132,25 @@ end
 
 function Game:toString()
     if self.netRole == NetRole.server then
-        return self.bat1:toString() .. "|" .. self.ball:toString()
+        return self.batLeft:toString() .. "|" .. self.ball:toString()
     else
-        return self.bat2:toString()
+        return self.batRight:toString()
     end
 end
 
 function Game:fromString(string)
     if self.netRole == NetRole.server then
-        self.bat2:fromString(string)
+        self.batRight:fromString(string)
     else
         local data = Split(string, "|")
-        self.bat1:fromString(data[1])
+        self.batLeft:fromString(data[1])
         self.ball:fromString(data[2])
     end
 end
 
 function Game:copy(object)
-    self.bat1 = object.bat1
-    self.bat2 = object.bat2
+    self.batLeft = object.batLeft
+    self.batRight = object.batRight
     self.player1 = object.player1
     self.player2 = object.player2
     self.ball = object.ball
@@ -159,14 +159,14 @@ end
 -------------------------------------------------------------
 
 function Game:moveBats()
-    self.bat1:move(Player1Down, Player1Up, Player1Push)
-    self.bat2:move(Player2Down, Player2Up, Player2Push)
+    self.batLeft:move(Player1Down, Player1Up, Player1Push)
+    self.batRight:move(Player2Down, Player2Up, Player2Push)
 end
 
 function Game:reset()
     self.ball:reset()
-    self.bat1:reset()
-    self.bat2:reset()
+    self.batLeft:reset()
+    self.batRight:reset()
     self.player1:reset()
     self.player2:reset()
     self.state = GameState.playing
@@ -184,12 +184,12 @@ function Game:pauseGame()
     end
 end
 
-function Game:switchModeBat1()
-    self.bat1:switchMode()
+function Game:switchModeBatLeft()
+    self.batLeft:switchMode()
 end
 
-function Game:switchModeBat2()
-    self.bat2:switchMode()
+function Game:switchModeBatRight()
+    self.batRight:switchMode()
 end
 
 function Game:checkScore()
