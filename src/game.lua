@@ -23,15 +23,6 @@ function Game:new()
     setmetatable(object, self)
     self.__index = self
 
-    if self.gameNetSettings == GameNetSettings.single then
-        PlayerMode1, PlayerMode2 = true, false
-    elseif self.gameNetSettings == GameNetSettings.multiLocal then
-        PlayerMode1, PlayerMode2 = true, true
-    else
-        PlayerMode1, PlayerMode2 = true, true
-        self.netRole = CurrentNetRole
-    end
-
     object.batLeft = Bat:new(object, BatPosition.left, PlayerMode1)
     object.batRight = Bat:new(object, BatPosition.right, PlayerMode2)
     object.player1 = Player:new(ScorePosition)

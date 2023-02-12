@@ -11,9 +11,6 @@ end
 MyFontSize = 45
 GeneralFont = love.graphics.newFont(MyFontSize)
 
-SizeConstant = 1
-ManipulateSize = true
-
 MotionConstant = 1
 ManipulateMotion = true
 Rng = love.math.newRandomGenerator(os.time())
@@ -30,7 +27,6 @@ SoundPath = "assets/sounds/"
 
 -- Game
 ScorePosition = ScreenWidth() / 4
-BatStartPosition = 25
 MaxPoints = 10
 PlayerMode1 = true
 PlayerMode2 = false

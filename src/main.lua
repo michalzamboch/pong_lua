@@ -33,10 +33,6 @@ function love.keypressed(key, scancode, isrepeat)
         AddMotion( -0.1)
     elseif key == "f2" then
         AddMotion(0.1)
-    elseif key == "f3" then
-        AddSize( -0.1)
-    elseif key == "f4" then
-        AddSize(0.1)
     elseif key == "f5" then
         GameCore:reset()
     elseif key == "f6" or key == "p" then
@@ -57,12 +53,6 @@ end
 function AddMotion(value)
     if ManipulateMotion then
         MotionConstant = MotionConstant + value
-    end
-end
-
-function AddSize(value)
-    if ManipulateSize then
-        SizeConstant = SizeConstant + value
     end
 end
 
