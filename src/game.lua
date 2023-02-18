@@ -150,8 +150,8 @@ end
 -------------------------------------------------------------
 
 function Game:moveBats()
-    self.batLeft:move(Player1Down, Player1Up, Player1Push)
-    self.batRight:move(Player2Down, Player2Up, Player2Push)
+    self.batLeft:move(PlayerLeftDown, PlayerLeftUp, PlayerLeftPush)
+    self.batRight:move(PlayerRightDown, PlayerRightUp, PlayerRightPush)
 end
 
 function Game:reset()
