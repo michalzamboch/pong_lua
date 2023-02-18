@@ -25,8 +25,8 @@ function Game:new()
 
     object.batLeft = Bat:new(object, BatPosition.left, PlayerMode1)
     object.batRight = Bat:new(object, BatPosition.right, PlayerMode2)
-    object.player1 = Player:new(ScorePosition)
-    object.player2 = Player:new(ScorePosition * 3)
+    object.playerLeft = Player:new(ScorePosition)
+    object.playerRight = Player:new(ScorePosition * 3)
     object.ball = Ball:new(object)
 
     object.universe = love.graphics.newImage(ImagePath .. "universe.png")
@@ -57,8 +57,8 @@ function Game:drawGame()
     self.batLeft:draw()
     self.batRight:draw()
     self.ball:draw()
-    self.player1:drawPoints()
-    self.player2:drawPoints()
+    self.playerLeft:drawPoints()
+    self.playerRight:drawPoints()
     self:drawFPS()
 end
 
@@ -66,9 +66,9 @@ function Game:drawResult()
     self:drawBackground()
     local message = nil
 
-    if self.player1.points >= self.maxPoints then
+    if self.playerLeft.points >= self.maxPoints then
         message = "Player on the left won."
-    elseif self.player2.points >= self.maxPoints then
+    elseif self.playerRight.points >= self.maxPoints then
         message = "Player on the right won."
     end
 
@@ -142,8 +142,8 @@ end
 function Game:copy(object)
     self.batLeft = object.batLeft
     self.batRight = object.batRight
-    self.player1 = object.player1
-    self.player2 = object.player2
+    self.playerLeft = object.playerLeft
+    self.playerRight = object.playerRight
     self.ball = object.ball
 end
 
@@ -158,8 +158,8 @@ function Game:reset()
     self.ball:reset()
     self.batLeft:reset()
     self.batRight:reset()
-    self.player1:reset()
-    self.player2:reset()
+    self.playerLeft:reset()
+    self.playerRight:reset()
     self.state = GameState.playing
 end
 
@@ -184,7 +184,7 @@ function Game:switchModeBatRight()
 end
 
 function Game:checkScore()
-    if self.player1.points >= self.maxPoints or self.player2.points >= self.maxPoints then
+    if self.playerLeft.points >= self.maxPoints or self.playerRight.points >= self.maxPoints then
         self.state = GameState.ended
         PlaySound(WinSound)
     end

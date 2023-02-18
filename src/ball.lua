@@ -180,11 +180,11 @@ function Ball:VerticalCollision(tmp_x)
     local width = love.graphics.getPixelWidth()
 
     if tmp_x > (width - self.a) then
-        self.game.player1:increasePoints()
+        self.game.playerLeft:increasePoints()
         self.game:checkScore()
         self:reset()
     elseif tmp_x < 0 then
-        self.game.player2:increasePoints()
+        self.game.playerRight:increasePoints()
         self.game:checkScore()
         self:reset()
     else
