@@ -26,7 +26,7 @@ function love.keypressed(key, scancode, isrepeat)
     if key == "escape" then
         os.exit()
     elseif key == "f1" then
-        AddMotion( -0.1)
+        AddMotion(-0.1)
     elseif key == "f2" then
         AddMotion(0.1)
     elseif key == "f5" then

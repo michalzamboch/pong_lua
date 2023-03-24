@@ -224,9 +224,9 @@ function Ball:setSpeed(xs, ys)
 end
 
 function Ball:invertXSpeed()
-    self.xSpeed = self.xSpeed * ( -1)
+    self.xSpeed = self.xSpeed * (-1)
 end
 
 function Ball:invertYSpeed()
-    self.ySpeed = self.ySpeed * ( -1)
+    self.ySpeed = self.ySpeed * (-1)
 end

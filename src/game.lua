@@ -64,19 +64,22 @@ end
 
 function Game:drawResult()
     self:drawBackground()
-    local message = nil
-
-    if self.playerLeft.points >= self.maxPoints then
-        message = "Player on the left won."
-    elseif self.playerRight.points >= self.maxPoints then
-        message = "Player on the right won."
-    end
+    local message = self:GetVictoryMessage()
 
     local tmpX = 10
     local tmpY = ScreenHeight() / 2 - MyFontSize
     local scale = 0.7
+
     love.graphics.print(message, tmpX, tmpY, nil, scale * ScaleX, scale * ScaleY)
     love.graphics.print("Press F5 to play new game.", tmpX, tmpY + MyFontSize, nil, scale * ScaleX, scale * ScaleY)
+end
+
+function Game:GetVictoryMessage()
+    if self.playerLeft.points >= self.maxPoints then
+        return "Player on the left won."
+    elseif self.playerRight.points >= self.maxPoints then
+        return "Player on the right won."
+    end
 end
 
 function Game:drawError()
