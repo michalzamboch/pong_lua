@@ -21,18 +21,6 @@ Bat = {
 
 --------------------------------------------------
 
-local function DefaultSettings(o)
-    o.w = o.image:getWidth()
-    o.h = o.image:getHeight()
-    o.y = BatPositionY
-    o.speed = BatSpeed
-    o.speedAi = BatSpeedAi
-    o.moving = false
-    o.stop = false
-    o.direction = 0
-    o.timerCurrent = 0
-end
-
 function Bat:new(game, position, manual)
     local object = {}
     setmetatable(object, self)
@@ -42,20 +30,31 @@ function Bat:new(game, position, manual)
     object.manual = manual
     object.position = position
 
-    if object.position == BatPosition.left then
-        object.image = love.graphics.newImage(ImagePath .. "1.png")
-        object.x = object.image:getWidth() / 2
-    else
-        object.image = love.graphics.newImage(ImagePath .. "2.png")
-        object.x = ScreenWidth() - object.image:getWidth() * 1.5
-    end
-    DefaultSettings(object)
-
+    object:resetPosition()
+    object:reset()
     return object
 end
 
+function Bat:resetPosition()
+    if self.position == BatPosition.left then
+        self.image = love.graphics.newImage(ImagePath .. "1.png")
+        self.x = self.image:getWidth() / 2
+    else
+        self.image = love.graphics.newImage(ImagePath .. "2.png")
+        self.x = ScreenWidth() - self.image:getWidth() * 1.5
+    end
+end
+
 function Bat:reset()
-    DefaultSettings(self)
+    self.w = self.image:getWidth()
+    self.h = self.image:getHeight()
+    self.y = BatPositionY
+    self.speed = BatSpeed
+    self.speedAi = BatSpeedAi
+    self.moving = false
+    self.stop = false
+    self.direction = 0
+    self.timerCurrent = 0
 end
 
 --------------------------------------------------

@@ -12,18 +12,6 @@ Bullet = {
 
 -------------------------------------------------------
 
-local function DefaultSettings(o)
-    o.a = BulletRadius
-    o.speed = BulletSpeed
-    o.fired = false
-    if o.bat.position == BatPosition.left then
-        o.x = o.bat.x + o.bat.w
-    else
-        o.x = o.bat.x - o.a
-    end
-    o.y = o.bat.y + o.bat.h / 2
-end
-
 function Bullet:new(game, bat)
     local object = {}
     setmetatable(object, self)
@@ -31,7 +19,7 @@ function Bullet:new(game, bat)
 
     object.game = game
     object.bat = bat
-    DefaultSettings(object)
+    object:reset()
 
     return object
 end
@@ -39,6 +27,18 @@ end
 -------------------------------------------------------
 
 function Bullet:reset()
+    self.a = BulletRadius
+    self.speed = BulletSpeed
+    self.fired = false
+    if self.bat.position == BatPosition.left then
+        self.x = self.bat.x + self.bat.w
+    else
+        self.x = self.bat.x - self.a
+    end
+    self.y = self.bat.y + self.bat.h / 2
+end
+
+function Bullet:delete()
     self = nil
 end
 

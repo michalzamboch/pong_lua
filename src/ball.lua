@@ -31,14 +31,6 @@ Ball = {
 
 ---------------------------------------------------------------
 
-local function DefaultSettings(o)
-    o.a = o.image:getWidth()
-    o.x = ScreenWidth() / 2 - o.a / 2
-    o.y = ScreenHeight() / 2 - o.a / 2
-    o.xSpeed = RandomSpeedX()
-    o.ySpeed = RandomSpeedY()
-end
-
 function Ball:new(game)
     local object = {}
     setmetatable(object, self)
@@ -47,12 +39,16 @@ function Ball:new(game)
     object.game = game
     object.image = love.graphics.newImage(ImagePath .. "ball.png")
 
-    DefaultSettings(object)
+    object:reset()
     return object
 end
 
 function Ball:reset()
-    DefaultSettings(self)
+    self.a = self.image:getWidth()
+    self.x = ScreenWidth() / 2 - self.a / 2
+    self.y = ScreenHeight() / 2 - self.a / 2
+    self.xSpeed = RandomSpeedX()
+    self.ySpeed = RandomSpeedY()
 end
 
 ---------------------------------------------------------------

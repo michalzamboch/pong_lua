@@ -9,11 +9,7 @@ function love.load()
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(GeneralFont)
 
-    BounceSound = love.audio.newSource(SoundPath .. "bounce.mp3", "static")
-    PointUpSound = love.audio.newSource(SoundPath .. "score.mp3", "static")
-    PointUpSound:setVolume(Volume)
-    WinSound = love.audio.newSource(SoundPath .. "win.mp3", "static")
-    WinSound:setVolume(Volume)
+    LoadSounds()
 
     GameCore = Game:new()
 end
@@ -49,6 +45,14 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 ------------------------------------------------
+
+function LoadSounds()
+    BounceSound = love.audio.newSource(SoundPath .. "bounce.mp3", "static")
+    PointUpSound = love.audio.newSource(SoundPath .. "score.mp3", "static")
+    PointUpSound:setVolume(Volume)
+    WinSound = love.audio.newSource(SoundPath .. "win.mp3", "static")
+    WinSound:setVolume(Volume)
+end
 
 function AddMotion(value)
     if ManipulateMotion then
