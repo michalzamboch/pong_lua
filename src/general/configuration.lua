@@ -56,8 +56,3 @@ BallMinSpeedX = 250
 BallMaxSpeedX = 300
 BallMinSpeedY = 125
 BallMaxSpeedY = 150
-
--- Bullet
-DefaultBulletCount = 10
-BulletRadius = 10
-BulletSpeed = 50
