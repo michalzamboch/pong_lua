@@ -196,7 +196,6 @@ function Bat:push(pushBtn)
     if self:possibleToPush(pushBtn) then
         self.timerCurrent = nil
         self.game.ball:AddXSpeed(200)
-        print("push")
     else
         self:timePush()
     end
