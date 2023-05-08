@@ -36,7 +36,7 @@ ShowFPS = false
 BatHeight = love.graphics.newImage(ImagePath .. "1.png"):getHeight()
 BatPositionY = (ScreenHeight() / 2) - BatHeight / 2
 BatSpeed = 200
-BatSpeedAi = 100
+BatSpeedAi = 125
 BatWidth = love.graphics.newImage(ImagePath .. "1.png"):getWidth()
 
 -- Player

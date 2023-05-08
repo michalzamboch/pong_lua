@@ -34,9 +34,9 @@ function love.keypressed(key, scancode, isrepeat)
     elseif key == "f6" or key == "p" then
         GameCore:pauseGame()
     elseif key == "f9" then
-        GameCore:switchModeBat1()
+        GameCore:switchModeBatLeft()
     elseif key == "f10" then
-        GameCore:switchModeBat2()
+        GameCore:switchModeBatRight()
     elseif key == "f12" then
         GameCore:showFPS()
     elseif key == "m" then
