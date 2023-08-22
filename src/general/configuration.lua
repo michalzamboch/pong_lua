@@ -11,7 +11,7 @@ end
 MyFontSize = 45
 GeneralFont = love.graphics.newFont(MyFontSize)
 
-MotionConstant = 1
+MotionConstant = 1.1
 ManipulateMotion = true
 Rng = love.math.newRandomGenerator(os.time())
 
@@ -52,7 +52,7 @@ PlayerRightPush = "right"
 BallSize = love.graphics.newImage(ImagePath .. "ball.png"):getWidth()
 BallPositionX = ScreenWidth() / 2 - BallSize / 2
 BallPositionY = ScreenHeight() / 2 - BallSize / 2
-BallMinSpeedX = 250
-BallMaxSpeedX = 300
+BallMinSpeedX = 300
+BallMaxSpeedX = 350
 BallMinSpeedY = 125
 BallMaxSpeedY = 150
